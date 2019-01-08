@@ -1,0 +1,18 @@
+# Compiled Object Files
+*.slo
+*.o
+*.lo
+*.so
+*.dylib
+*.a
+
+#Slick Edit Files
+*.vtg
+*.vpwhistu
+*.vpwhist
+
+#Build Dirs
+Build
+build
+.build
+bin
