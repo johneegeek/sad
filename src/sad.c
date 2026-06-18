@@ -1972,7 +1972,7 @@ void show_help( void )
 \*****************************************************************************/
 void show_version( void )
 {
-    fprintf(stderr, "'%s' version %s%s%s", pname, SAD_MAJOR_VER, SAD_MINOR_VER, SAD_REVISION);
+    fprintf(stderr, "'%s' version %s", pname, SAD_VERSION);
 #if defined(__WIN32__) || defined(_MSC_VER) || defined(_WIN64)
     fprintf(stderr, " for Windows.\n");
 #elif defined(__ST32__)
@@ -1996,11 +1996,8 @@ void show_version( void )
     fprintf(stderr, "\n");
 #endif
     fprintf(stderr, "Copyright (c) 1997-2026.  John Kiernan\n");
-    fprintf(stderr, "Last compiled on %s at %s\n", __DATE__, __TIME__);
-/*attempt to show compiler*/
-#ifdef __COMPILER__
-    fprintf(stderr, "Compiled using %s\n", (char*)_MAC_STR(__COMPILER__));
-#endif
+    fprintf(stderr, "Last compiled on %s (%s)\n", BUILD_DATE, COMPILER_INFO);
+    fprintf(stderr, "git sha: %s\n", SAD_GIT_SHA);
 } /* show_version() */
 /*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*/
 

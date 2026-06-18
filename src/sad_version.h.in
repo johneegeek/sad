@@ -1,0 +1,21 @@
+// Version info header.
+// This header file is auto-generated. DO NOT EDIT DIRECTLY
+// THIS HEADER CHANGES FREQUENTLY. (You probably don't want to include
+// everywhere as it will cause unnecessary rebuilds)
+//
+// ---------------------------------------------------------------------
+#ifndef SAD_VERSION_H
+#define SAD_VERSION_H
+
+#define SAD_VERSION "@PROJECT_VERSION@@BUILD_TIMESTAMP@"
+
+#define SAD_MAJOR_VER @PROJECT_VERSION_MAJOR@
+#define SAD_MINOR_VER @PROJECT_VERSION_MINOR@
+#define SAD_REVISION @PROJECT_VERSION_PATCH@
+
+#define SAD_GIT_SHA "@GIT_SHA@"
+
+#define COMPILER_INFO "@CMAKE_CXX_COMPILER_ID@ @CMAKE_CXX_COMPILER_VERSION@"
+#define BUILD_DATE "@BUILD_DATE@"
+
+#endif // SAD_VERSION_H
