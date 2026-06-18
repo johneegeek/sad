@@ -3,34 +3,31 @@
  # Module: sad.c
  #
  # History:
+ #    2.6.0  Modernized a bit (CMake) and fixed float bug in Mac/Linux
  #    2.5.4  Added configuration for WT (if ST32 does not exist)
  #    2.5.3  Updated/fixed a few compile warnings.
  #    2.5.2  Changed to use CMake and build on Mac and Linux.
  #    2.5.1  Change -6r compile switch to -4r for AMD/Win64 compatability. -JK
  #    2.5.0  Added --offset-divisor option to change offset numbers. - JK
- #    2.4.0  Added alternate text processing of numeric parameters. (i.e. Hex, Oct, etc) -JK
- #    2.3.1  Fixed up the code a little to allow compulation on Linux -JK
- #    2.3.0  Added --show-spaces option. (used only for --ascii) -JK
- #    2.2.3  Fixed --signed output. (was not really signed!) -JK
- #    2.2.2  Fixed FileIsBin() function, always returned false :(   -JK
- #    2.2.1  Fixed some lint errors.  -JK
- #    2.2.0  Added --float-width and --float-precision options
+ #    2.4.0  Added alternate text processing of numeric parameters. (i.e. Hex,
+Oct, etc) -JK #    2.3.1  Fixed up the code a little to allow compulation on
+Linux -JK #    2.3.0  Added --show-spaces option. (used only for --ascii) -JK #
+2.2.3  Fixed --signed output. (was not really signed!) -JK #    2.2.2  Fixed
+FileIsBin() function, always returned false :(   -JK #    2.2.1  Fixed some lint
+errors.  -JK #    2.2.0  Added --float-width and --float-precision options
  #    2.1.2  Fixed 64bit binary text bug. -JK
  #    2.1.1  Added read options from cfg and/or env. -JK
  #    2.1.0  Added --binary option. -JK
  #    2.0.11 Changed floating point rounding scheme. -JK
- #    2.0.10 Fixed floating point and double error.  Incorrectly calcuted pointer sizes and displayed
- #           wrong values.
- #    2.0.9  Fixed -k option on float and double -JK
- #    2.0.8  Help file had options -F and -H reversed.
- #    2.0.7  Fixed duplicate error where first dup line was not found. -JK
- #    2.0.6  Spelling fixes.
- #    2.0.5  Fixed stdin open error. Now realy does open in binary. -JK
- #    2.0.4  Added suppport for starting offset and or count. -JK
- #    2.0.3  Added support for partial dumps (--count) option. -JK
- #    2.0.2  Fixed offset printing (default is always hex) option to show in
- #           other formats -JK
- #    2.0.1  Added float and signed support. -JK
+ #    2.0.10 Fixed floating point and double error.  Incorrectly calcuted
+pointer sizes and displayed #           wrong values. #    2.0.9  Fixed -k
+option on float and double -JK #    2.0.8  Help file had options -F and -H
+reversed. #    2.0.7  Fixed duplicate error where first dup line was not found.
+-JK #    2.0.6  Spelling fixes. #    2.0.5  Fixed stdin open error. Now realy
+does open in binary. -JK #    2.0.4  Added suppport for starting offset and or
+count. -JK #    2.0.3  Added support for partial dumps (--count) option. -JK #
+2.0.2  Fixed offset printing (default is always hex) option to show in # other
+formats -JK #    2.0.1  Added float and signed support. -JK
  #
 \*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*/
 /****************/
@@ -1976,33 +1973,32 @@ void show_help( void )
 void show_version( void )
 {
     fprintf(stderr, "'%s' version %s%s%s", pname, SAD_MAJOR_VER, SAD_MINOR_VER, SAD_REVISION);
-    #if defined(__ST32__)
-        fprintf(stderr, " for Win32.\n");
-    #elif defined(__DOS16__)
-        fprintf(stderr, " for DOS.\n");
-    #elif defined(__LINUX__)
-        fprintf(stderr, " for linux.\n");
-    #elif defined(__APPLE__)
-        fprintf(stderr, " for Apple.\n");
-    #elif defined(__QNX__)
-        fprintf(stderr, " for QNX.");
-        #if defined(__BIG_ENDIAN__)
-            fprintf(stderr, " (big-endian)\n");
-        #else
-            fprintf(stderr, " (little-endian)\n");
-        #endif
-    #elif defined(__UNIXLIKE__)
-        fprintf(stderr, " for unix.\n");
-    #else
-        fprintf(stderr, "\n");
-    #endif
-
-    fprintf(stderr, "Copyright (c) 2006.  John Kiernan\n");
+#if defined(__ST32__)
+    fprintf(stderr, " for Win32.\n");
+#elif defined(__DOS16__)
+    fprintf(stderr, " for DOS.\n");
+#elif defined(__LINUX__) || defined(__linux__)
+    fprintf(stderr, " for linux.\n");
+#elif defined(__APPLE__)
+    fprintf(stderr, " for Apple.\n");
+#elif defined(__QNX__)
+    fprintf(stderr, " for QNX.");
+#if defined(__BIG_ENDIAN__)
+    fprintf(stderr, " (big-endian)\n");
+#else
+    fprintf(stderr, " (little-endian)\n");
+#endif
+#elif defined(__UNIXLIKE__)
+    fprintf(stderr, " for unix.\n");
+#else
+    fprintf(stderr, "\n");
+#endif
+    fprintf(stderr, "Copyright (c) 1997-2026.  John Kiernan\n");
     fprintf(stderr, "Last compiled on %s at %s\n", __DATE__, __TIME__);
     /*attempt to show compiler*/
-    #ifdef __COMPILER__
-        fprintf(stderr,"Compiled using %s\n", (char *)_MAC_STR(__COMPILER__));
-    #endif
+#ifdef __COMPILER__
+    fprintf(stderr, "Compiled using %s\n", (char *)_MAC_STR(__COMPILER__));
+#endif
 } /* show_version() */
 /*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*/
 

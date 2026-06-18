@@ -263,7 +263,7 @@ SAD is "as is" under the MIT License
 
 John Kiernan <[john@yellowsocks.com](mailto:john@yellowsocks.com)>
 
-Copyright © 1997, 2002, 2003, 2006
+Copyright © 1997-2026
 
 ## Documentation
 

@@ -58,8 +58,8 @@
         typedef int               int32;
         typedef unsigned int      uint32;
     #else
-        typedef long int          int32;
-        typedef unsigned long int uint32;
+        typedef int               int32;
+        typedef unsigned int      uint32;
     #endif
 
     /* NOTE: for 64bit integers, use %I64u or %I64d in printfs to display*/
