@@ -1955,7 +1955,7 @@ void show_help( void )
     fprintf(fp, "\nNote: When entering numbers, default is decimal (base 10). To enter numbers in other bases:");
     fprintf(fp, "\nHexadecimal=0xNNNN, Octal=0oNNNN, Binary=0bNNNN\n");
     fprintf(fp, "\n");
-    fprintf(fp, "Report bugs to <bugs-sad@yellowsocks.com>\n");
+    fprintf(fp, "Report issues to <john@yellowsocks.com>\n");
 
     #if !defined(__DOS16__)
         if (use_pager)
