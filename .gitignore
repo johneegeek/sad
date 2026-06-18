@@ -16,3 +16,6 @@ Build
 build
 .build
 bin
+
+#Ignore claude
+.claude
