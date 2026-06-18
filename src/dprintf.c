@@ -1,10 +1,6 @@
 /*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\
  # Debugging printf functions
  # Module: dprintf.c
- # $Header: C:\\st32_dev\\source_files\\sad\\RCS\\dprintf.c,v 1.0 2002-07-22 09:53:51-05 john Exp john $
- #
- # Created: 7/11/2002
- # Copyright Bio-Imaging Research, Inc.
  #
  # History:
  #

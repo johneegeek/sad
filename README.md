@@ -257,16 +257,13 @@ See [version.h](src/version.h) for detailed version information.
 
 ## License
 
-SAD is free for non-commercial use.
-
-Commercial use requires a license. For licensing information, contact:
-[sad-license@yellowsocks.com](mailto:sad-license@yellowsocks.com)
+SAD is "as is" under the MIT License 
 
 ## Author
 
 John Kiernan <[john@yellowsocks.com](mailto:john@yellowsocks.com)>
 
-Copyright © 1997, 2002, 2003
+Copyright © 1997, 2002, 2003, 2006
 
 ## Documentation
 
