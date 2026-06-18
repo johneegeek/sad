@@ -1973,31 +1973,33 @@ void show_help( void )
 void show_version( void )
 {
     fprintf(stderr, "'%s' version %s%s%s", pname, SAD_MAJOR_VER, SAD_MINOR_VER, SAD_REVISION);
-#if defined(__ST32__)
-    fprintf(stderr, " for Win32.\n");
+#if defined(__WIN32__) || defined(_MSC_VER) || defined(_WIN64)
+    fprintf(stderr, " for Windows.\n");
+#elif defined(__ST32__)
+    fprintf(stderr, " for ST32.\n");
 #elif defined(__DOS16__)
     fprintf(stderr, " for DOS.\n");
 #elif defined(__LINUX__) || defined(__linux__)
-    fprintf(stderr, " for linux.\n");
+    fprintf(stderr, " for Linux.\n");
 #elif defined(__APPLE__)
     fprintf(stderr, " for Apple.\n");
 #elif defined(__QNX__)
-    fprintf(stderr, " for QNX.");
-#if defined(__BIG_ENDIAN__)
+    f printf(stderr, " for QNX.");
+    #if defined(__BIG_ENDIAN__)
     fprintf(stderr, " (big-endian)\n");
-#else
+    #else
     fprintf(stderr, " (little-endian)\n");
-#endif
+    #endif
 #elif defined(__UNIXLIKE__)
-    fprintf(stderr, " for unix.\n");
+    fprintf(stderr, " for Unix.\n");
 #else
     fprintf(stderr, "\n");
 #endif
     fprintf(stderr, "Copyright (c) 1997-2026.  John Kiernan\n");
     fprintf(stderr, "Last compiled on %s at %s\n", __DATE__, __TIME__);
-    /*attempt to show compiler*/
+/*attempt to show compiler*/
 #ifdef __COMPILER__
-    fprintf(stderr, "Compiled using %s\n", (char *)_MAC_STR(__COMPILER__));
+    fprintf(stderr, "Compiled using %s\n", (char*)_MAC_STR(__COMPILER__));
 #endif
 } /* show_version() */
 /*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*/
@@ -3098,20 +3100,20 @@ bool write_fmtline_dec(FILE *fp, uint32 current_offset, void *buffer, uint32 cou
 
                 if (!big_endian)
                 {
-                    #if !defined(__GNUC__)
+#if !defined(__GNUC__)
                     sprintf(data_str, "%20I64u", *p_qword);
-                    #else
+#else
                     sprintf(data_str, "%20llu", *p_qword);
-                    #endif
+#endif
                     ++p_qword;
                 } /* if (little-endian) */
                 else
                 {
-                    #if !defined(__GNUC__)
+#if !defined(__GNUC__)
                     sprintf(data_str, "%20I64u", BYTE_SWAP_64(*p_qword));
-                    #else
+#else
                     sprintf(data_str, "%20llu", BYTE_SWAP_64(*p_qword));
-                    #endif
+#endif
                     ++p_qword;
                 } /* else */
 
@@ -3511,20 +3513,20 @@ bool write_fmtline_oct(FILE *fp, uint32 current_offset, void *buffer, uint32 cou
 
                 if (!big_endian)
                 {
-                    #if !defined(__GNUC__)
+#if !defined(__GNUC__)
                     sprintf(data_str, "%22I64o", *p_qword);
-                    #else
+#else
                     sprintf(data_str, "%22llo", *p_qword);
-                    #endif
+#endif
                     ++p_qword;
                 } /* if (little-endian) */
                 else
                 {
-                    #if !defined(__GNUC__)
+#if !defined(__GNUC__)
                     sprintf(data_str, "%22I64o", BYTE_SWAP_64(*p_qword));
-                    #else
+#else
                     sprintf(data_str, "%22llo", BYTE_SWAP_64(*p_qword));
-                    #endif
+#endif
                     ++p_qword;
                 } /* else */
 
@@ -3924,20 +3926,21 @@ bool write_fmtline_signed(FILE *fp, uint32 current_offset, void *buffer, uint32 
 
                 if (!big_endian)
                 {
-                    #if !defined(__GNUC__)
-                    sprintf(data_str, "% 21I64d", (int64)(*(int64 *)p_qword));
-                    #else
-                    sprintf(data_str, "% 21lld", (int64)(*(int64 *)p_qword));
-                    #endif
+#if !defined(__GNUC__)
+                    sprintf(data_str, "% 21I64d", (int64)(*(int64*)p_qword));
+#else
+                    sprintf(data_str, "% 21lld", (int64)(*(int64*)p_qword));
+#endif
                     ++p_qword;
                 } /* if (little-endian) */
                 else
                 {
-                    #if !defined(__GNUC__)
-                    sprintf(data_str, "% 21I64d", (int64)BYTE_SWAP_64(*(int64 *)p_qword));
-                    #else
-                    sprintf(data_str, "% 21lld", (int64)BYTE_SWAP_64(*(int64 *)p_qword));
-                    #endif
+#if !defined(__GNUC__)
+                    sprintf(data_str, "% 21I64d",
+                            (int64)BYTE_SWAP_64(*(int64*)p_qword));
+#else
+                    sprintf(data_str, "% 21lld", (int64)BYTE_SWAP_64(*(int64*)p_qword));
+#endif
                     ++p_qword;
                 } /* else */
 
@@ -4181,21 +4184,25 @@ bool write_fmtline_float(FILE *fp, uint32 current_offset, void *buffer, uint32 c
 
                 if (!big_endian)
                 {
-                    #if !defined(__GNUC__)
-                    sprintf(data_str, "%*.*I64g",float_width, float_precision,  (double)( *((double *)p_qword)));
-                    #else
-                    sprintf(data_str, "%*.*g",float_width, float_precision,  (double)( *((double *)p_qword)));
-                    #endif
+#if !defined(__GNUC__)
+                    sprintf(data_str, "%*.*I64g", float_width, float_precision,
+                            (double)(*((double*)p_qword)));
+#else
+                    sprintf(data_str, "%*.*g", float_width, float_precision,
+                            (double)(*((double*)p_qword)));
+#endif
                     ++p_qword;
                 } /* if (little-endian) */
                 else
                 {
                     *p_qword = BYTE_SWAP_64(*p_qword);
-                    #if !defined(__GNUC__)
-                    sprintf(data_str, "%*.*I64g",float_width, float_precision,  (double)( *((double *)p_qword)));
-                    #else
-                    sprintf(data_str, "%*.*g",float_width, float_precision,  (double)( *((double *)p_qword)));
-                    #endif
+#if !defined(__GNUC__)
+                    sprintf(data_str, "%*.*I64g", float_width, float_precision,
+                            (double)(*((double*)p_qword)));
+#else
+                    sprintf(data_str, "%*.*g", float_width, float_precision,
+                            (double)(*((double*)p_qword)));
+#endif
                     ++p_qword;
                 } /* else */
 
