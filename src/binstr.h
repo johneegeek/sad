@@ -5,6 +5,8 @@
 #ifndef _BINSTR_H
 #define _BINSTR_H
 
+#include <stdint.h>
+
 /* prototypes */
 
 /*****************************************************************************\
@@ -19,7 +21,7 @@
  Returns:
    binary string of value.
 \*****************************************************************************/
-extern char *binstr( uint64 value, void *buffer, size_t bytes );
+extern char *binstr( uint64_t value, void *buffer, size_t bytes );
 
 
 

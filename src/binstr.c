@@ -11,6 +11,7 @@
 #include "platform.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 #include "jkcommon.h"
                  
                         
@@ -18,7 +19,7 @@
 
 /*local prototype*/
 
-char *binstr( uint64 value, void *buffer, size_t bytes );
+char *binstr( uint64_t value, void *buffer, size_t bytes );
 
 
 /* implementation */
@@ -32,7 +33,7 @@ char *binstr( uint64 value, void *buffer, size_t bytes );
    binary string of value.
 \*****************************************************************************/
 
-char *binstr( uint64 value, void *buffer, size_t bytes )
+char *binstr( uint64_t value, void *buffer, size_t bytes )
 {
     BYTE        *p; /* position pointer of buffer */
     BYTE        bits;
@@ -47,7 +48,7 @@ char *binstr( uint64 value, void *buffer, size_t bytes )
     *p-- = 0;
 
     for( n=0; n < bits; n++ )
-        *p-- = (BYTE)((value & ((uint64)1 << n)) ? '1' : '0');
+        *p-- = (BYTE)((value & ((uint64_t)1 << n)) ? '1' : '0');
 
     return( buffer );
 

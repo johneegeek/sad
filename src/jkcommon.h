@@ -49,29 +49,11 @@
 #endif
 
 
-#ifndef _INT_TYPES_DEFINED
-#define _INT_TYPES_DEFINED
-    typedef short int             int16;
-    typedef unsigned short int    uint16;
-
-    #if defined(WIN32) || defined(_WINDOWS_)
-        typedef int               int32;
-        typedef unsigned int      uint32;
-    #else
-        typedef int               int32;
-        typedef unsigned int      uint32;
-    #endif
-
-    /* NOTE: for 64bit integers, use %I64u or %I64d in printfs to display*/
-    #if defined(__GNUC__) || defined(S_SPLINT_S)
-        typedef long long int           int64;
-        typedef unsigned long long int  uint64;
-    #endif
-    #if defined(_MSC_VER) || defined(__BORLANDC__) || defined(__WATCOMC__)
-        typedef __int64                 int64;
-        typedef unsigned __int64        uint64;
-    #endif
-#endif
+/* Legacy type definitions removed - now using standard <stdint.h> types:
+ * Use uint8_t, uint16_t, uint32_t, uint64_t instead of uint8, uint16, uint32, uint64
+ * Use int8_t, int16_t, int32_t, int64_t instead of int8, int16, int32, int64
+ */
+#include <stdint.h>
 
 /* BYTE Type */
 #if !defined(_WINDOWS_) && !defined(_WINDEF_) && !defined(_BYTE_DEFINED)

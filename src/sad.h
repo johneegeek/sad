@@ -12,31 +12,10 @@ static const char E_BEGIN = '*';
 static const char E_END = '*';
 static const char DUP_CHAR = '*';
 
-char *CtrlTable[] =
-{
-    "nul", "soh", "stx", "etx", "eot", "enq", "ack", "bel",
-    "bs",  "ht",  "nl",  "vt",  "np",  "cr",  "so",  "si",
-    "dle", "dc1", "dc2", "dc3", "dc4", "nak", "syn", "etb",
-    "can", "em",  "sub", "esc", "fs",  "gs",  "rs",  "us"
-};
-
-char *CCTable[] =
-{
-    "^@", "^A", "^B", "^C", "^D", "^E", "^F", "^G",
-    "^H",  "^I",  "^J",  "^K",  "^L",  "^M",  "^N",  "^O",
-    "^P", "^Q", "^R", "^S", "^T", "^U", "^V", "^W",
-    "^X", "^Y",  "^Z", "^[", "^\\",  "^]",  "^^",  "^_"
-};
-
-char *H_CCTable[] =
-{
-    "^\b^@\b@", "^\b^A\bA", "^\b^B\bB", "^\b^C\bC", "^\b^D\bD", "^\b^E\bE",
-    "^\b^F\bF", "^\b^G\bG", "^\b^H\bH", "^\b^I\bI", "^\b^J\bJ", "^\b^K\bK",
-    "^\b^L\bL", "^\b^M\bM", "^\b^N\bN", "^\b^O\bO", "^\b^P\bP", "^\b^Q\bQ",
-    "^\b^R\bR", "^\b^S\bS", "^\b^T\bT", "^\b^U\bU", "^\b^V\bV", "^\b^W\bW",
-    "^\b^X\bX", "^\b^Y\bY", "^\b^Z\bZ", "^\b^[\b[", "^\b^\\\b\\",
-    "^\b^]\b]", "^\b^^\b^", "^\b^_\b_"
-};
+/* External declarations for control character tables (defined in sad.c) */
+extern char *CtrlTable[];
+extern char *CCTable[];
+extern char *H_CCTable[];
 
 #define CH_DEL   0x7F
 #define CH_NL    0x0A

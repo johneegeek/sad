@@ -1,4 +1,4 @@
-# SAD - Slicer's Awesome Dump
+# SAD - Slightly Awesome Dump
 
 A powerful, cross-platform hex dump utility with multiple output formats and extensive customization options.
 

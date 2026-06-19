@@ -2,10 +2,15 @@
 set(sad_SRCS
     binstr.c
     dprintf.c
+    dumpers.c
+    formatters.c
     getopt.c
+    help.c
     makeargs.c
+    options.c
     sad.c
     util.cpp
+    utils.c
 )
 
 # Create the executable
