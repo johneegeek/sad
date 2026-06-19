@@ -1897,7 +1897,7 @@ void show_help( void )
     fp = stdout;
     #endif
 
-    fprintf(fp, "Slicers Awesome Dump - version %s%s%s\n", SAD_MAJOR_VER, SAD_MINOR_VER, SAD_REVISION);
+    fprintf(fp, "Slicers Awesome Dump - version %s\n", SAD_VERSION);
     fprintf(fp, "Usage: %s [options] [file(s)]\n", pname );
     fprintf(fp, "Options:\n");
     fprintf(fp, "   -a,   --ascii            Display in ASCII format.\n");
