@@ -251,9 +251,9 @@ tcpdump -r capture.pcap -w - | sad --hex --words
 
 ## Version
 
-Current version: 2.5.x
+Current version: 2.6.x
 
-See [version.h](src/version.h) for detailed version information.
+See `sad --version` for detailed version information.
 
 ## License
 

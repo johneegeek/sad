@@ -43,7 +43,7 @@ char *binstr( uint64 value, void *buffer, size_t bytes )
     if ( bytes > sizeof(value) ) /* more bytes than value has! */
         return(NULL);
 
-    p = (BYTE *)((uint32)buffer + bits);
+    p = (BYTE *)buffer + bits;
     *p-- = 0;
 
     for( n=0; n < bits; n++ )
