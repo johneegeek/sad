@@ -137,7 +137,8 @@ For floating point output, the width and precision can be specified.
 Optionally, **sad** can parse options from a configuration file. The configuration file, named **sad.cfg**, will be searched for in two possible locations.
 
 1. The users "**HOME**" directory, as specified by the **HOME** environment variable.
-2. The `%ST32%\config` directory. (As distributed with ST32 tools)
+2. The `%WTDIR%/config` directory. (As distributed with WT tools)
+3. The `$XDG_CONFIG_DIR/sad` directory. (All environments)
 
 The configuration file options are parsed the same as though they were given on the command line, with the exception that *newline* characters and comments are ignored. Comments are delimited with a "#" character.
 An example **sad.cfg** file:

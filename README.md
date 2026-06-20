@@ -187,15 +187,16 @@ cat myfile.bin | sad --hex --words
 ### Configuration File
 
 SAD can read default options from a configuration file named `sad.cfg` in:
-1. Your `$HOME` directory
-2. The `%ST32%\config` directory (Windows)
+1. `$HOME/sad.cfg` 
+2. `$XDG_CONFIG_DIR/sad/sad.cfg`
+3. `%WTDIR%/config/sad.cfg` directory (Windows)
 
 Example `sad.cfg`:
 ```bash
 # SAD configuration file
 --no-highlight       # Disable pager highlighting
 --show-duplicates    # Show all lines
---float-precision=10 # Set float precision
+--float-precision=6  # Set float precision
 ```
 
 ### Environment Variable

@@ -6,7 +6,7 @@ list(APPEND CMAKE_MODULE_PATH
 ) 
 
 project(sad
-    VERSION 2.6.3
+    VERSION 2.6.4
     DESCRIPTION "SAD - Hex Dump Utility" 
     LANGUAGES C CXX
 )

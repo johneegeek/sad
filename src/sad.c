@@ -179,7 +179,7 @@ int main(int argc, char** argv)
     if (strlen(cfg_file) == 0) {
         p = getenv("WTDIR");
         if (p != NULL) {
-            dbprintf("%s: debug: `WDIR' variable found, checking for config\n", pname);
+            dbprintf("%s: debug: `WTDIR' variable found, checking for config\n", pname);
 #if !defined(_UNIXSTYLE_PATHS)
             sprintf(cfg_file, "%s\\cfg\\sad.cfg", p);
 #else
@@ -190,13 +190,15 @@ int main(int argc, char** argv)
     } /* else */
 
     if (strlen(cfg_file) == 0) {
-        p = getenv("ST32");
+        p = getenv("XDG_CONFIG_HOME");
         if (p != NULL) {
-            dbprintf("%s: debug: `ST32' variable found, checking for config\n", pname);
+            dbprintf(
+                "%s: debug: `XDG_CONFIG_HOME' variable found, checking for config\n",
+                pname);
 #if !defined(_UNIXSTYLE_PATHS)
-            sprintf(cfg_file, "%s\\config\\sad.cfg", p);
+            sprintf(cfg_file, "%s\\sad\\sad.cfg", p);
 #else
-            sprintf(cfg_file, "%s/config/sad.cfg", p);
+            sprintf(cfg_file, "%s/sad/sad.cfg", p);
 #endif
             if (!FILE_EXISTS(cfg_file)) cfg_file[0] = 0;
         } /* if (p != NULL) */
