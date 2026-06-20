@@ -24,17 +24,7 @@ Pre-built binaries are available for Windows, macOS, and Linux in the [Releases]
 ### macOS
 
 1. Download `sad-vX.X.X-macos-x64` from the latest release
-2. **Bypass Gatekeeper warning** (required on first run)
-<br>The Mac built executable is unsigned so will give a untrusted/malware type
-warning. If you are worried about this warning, it is recommend that you [build from
-source](#building-from-source), otherwise you can bypass the warning as follows:
-   ```bash
-   # Remove quarantine attribute
-   xattr -d com.apple.quarantine sad-vX.X.X-macos-x64
-
-   # Or right-click the file, select "Open", then click "Open" in the dialog
-   ```
-3. Make it executable and optionally rename:
+2. Make it executable and optionally rename:
    ```bash
    chmod +x sad-vX.X.X-macos-x64
 
@@ -43,6 +33,17 @@ source](#building-from-source), otherwise you can bypass the warning as follows:
 
    # Option 2: Create a symlink
    ln -s sad-vX.X.X-macos-x64 sad
+   ```
+3. **Bypass Gatekeeper warning** (required on first run)
+> [!IMPORTANT]
+> The Mac built executable is unsigned so will give a untrusted/malware type
+> warning. If you are worried about this warning, it is recommend that you [build from
+> source](#building-from-source), otherwise you can bypass the warning as follows:
+   ```bash
+   # Remove quarantine attribute
+   xattr -d com.apple.quarantine sad-vX.X.X-macos-x64
+
+   # Or right-click the file, select "Open", then click "Open" in the dialog
    ```
 4. Move to a directory in your PATH (optional):
    ```bash
