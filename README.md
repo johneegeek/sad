@@ -18,8 +18,75 @@ SAD writes various representations of files or streams to standard output. Unlik
 - **Cross-Platform**: Works on Linux, macOS, and Windows
 
 ## Binaries
-Binaries are available for Windows, Mac and Linux. See the "Releases" section in GitHub.
-If the prebuilt binaries don't work for you, it is recommend you build from source.
+
+Pre-built binaries are available for Windows, macOS, and Linux in the [Releases](https://github.com/yourusername/sad/releases) section.
+
+### macOS
+
+1. Download `sad-vX.X.X-macos-x64` from the latest release
+2. **Bypass Gatekeeper warning** (required on first run):
+   ```bash
+   # Remove quarantine attribute
+   xattr -d com.apple.quarantine sad-vX.X.X-macos-x64
+
+   # Or right-click the file, select "Open", then click "Open" in the dialog
+   ```
+3. Make it executable and optionally rename:
+   ```bash
+   chmod +x sad-vX.X.X-macos-x64
+
+   # Option 1: Rename to 'sad'
+   mv sad-vX.X.X-macos-x64 sad
+
+   # Option 2: Create a symlink
+   ln -s sad-vX.X.X-macos-x64 sad
+   ```
+4. Move to a directory in your PATH (optional):
+   ```bash
+   sudo mv sad /usr/local/bin/
+   # Or
+   mv sad ~/.local/bin/  # Ensure ~/.local/bin is in your PATH
+   ```
+
+### Linux
+
+1. Download `sad-vX.X.X-linux-x64` from the latest release
+2. Make it executable and optionally rename:
+   ```bash
+   chmod +x sad-vX.X.X-linux-x64
+
+   # Option 1: Rename to 'sad'
+   mv sad-vX.X.X-linux-x64 sad
+
+   # Option 2: Create a symlink
+   ln -s sad-vX.X.X-linux-x64 sad
+   ```
+3. Move to a directory in your PATH (optional):
+   ```bash
+   sudo mv sad /usr/local/bin/
+   # Or
+   mkdir -p ~/.local/bin
+   mv sad ~/.local/bin/  # Ensure ~/.local/bin is in your PATH
+   ```
+
+### Windows
+
+1. Download `sad-vX.X.X-windows-x64.exe` from the latest release
+2. Optionally rename:
+   ```cmd
+   ren sad-vX.X.X-windows-x64.exe sad.exe
+   ```
+3. Move to a directory in your PATH (optional):
+   - Create a directory like `C:\Program Files\sad\`
+   - Move `sad.exe` there
+   - Add the directory to your PATH:
+     - Right-click "This PC" → Properties → Advanced system settings
+     - Click "Environment Variables"
+     - Under "System variables", find "Path", click "Edit"
+     - Click "New" and add `C:\Program Files\sad\`
+     - Click OK
+
+**Note**: If the prebuilt binaries don't work for your system, it is recommended you [build from source](#building-from-source).
 
 ## Building From Source
 
