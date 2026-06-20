@@ -78,6 +78,7 @@ elseif(CMAKE_COMPILER_IS_GNUCC OR CMAKE_C_COMPILER_ID MATCHES "Clang")
         -Wextra
         $<$<CONFIG:Release>:-O2>
         $<$<CONFIG:Debug>:-g>
+        -Wno-deprecated-declarations
     )
     target_compile_definitions(sad PRIVATE
         $<$<CONFIG:Release>:NDEBUG>
