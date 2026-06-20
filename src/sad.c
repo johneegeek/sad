@@ -5,6 +5,14 @@
  *
  * Copyright (c) 1997-2026 John Kiernan
  * Licensed under MIT License - see LICENSE file for details
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
  ******************************************************************************/
 
 #include "platform.h"
@@ -99,6 +107,36 @@ char* pname;
 
 uint64_t string_to_uint64(const char* val, bool* valid);
 
+/**
+ * Try to find config file at a specific location
+ * @param cfg_file Buffer to store the config file path
+ * @param env_var Environment variable name to check
+ * @param path_suffix Path suffix to append (e.g., "sad.cfg", "cfg/sad.cfg")
+ * @return true if config file found, false otherwise
+ */
+static bool try_config_location(char* cfg_file, const char* env_var,
+                                const char* path_suffix)
+{
+    char* p = getenv(env_var);
+    if (p != NULL) {
+        dbprintf("%s: debug: `%s' variable found, checking for config\n", pname,
+                 env_var);
+#if !defined(_UNIXSTYLE_PATHS)
+        /* On Windows, build path with backslashes */
+        sprintf(cfg_file, "%s\\%s", p, path_suffix);
+        /* Replace forward slashes with backslashes in the suffix portion */
+        char* slash;
+        while ((slash = strchr(cfg_file, '/')) != NULL) {
+            *slash = '\\';
+        }
+#else
+        sprintf(cfg_file, "%s/%s", p, path_suffix);
+#endif
+        if (FILE_EXISTS(cfg_file)) { return true; }
+    }
+    return false;
+}
+
 int main(int argc, char** argv)
 {
     char*  p;
@@ -164,47 +202,9 @@ int main(int argc, char** argv)
     dbprintf("%s: debug: checking for options...\n", pname);
 
     cfg_file[0] = 0;
-    p           = getenv("HOME");
-    if (p != NULL) {
-        dbprintf("%s: debug: `HOME' variable found, checking for config\n", pname);
-#if !defined(_UNIXSTYLE_PATHS)
-        sprintf(cfg_file, "%s\\sad.cfg", p);
-#else
-        sprintf(cfg_file, "%s/sad.cfg", p);
-#endif
-        if (!FILE_EXISTS(cfg_file)) cfg_file[0] = 0;
-    } /* if (p != NULL) */
-
-    /* First check for WTDIR variable */
-    if (strlen(cfg_file) == 0) {
-        p = getenv("WTDIR");
-        if (p != NULL) {
-            dbprintf("%s: debug: `WTDIR' variable found, checking for config\n", pname);
-#if !defined(_UNIXSTYLE_PATHS)
-            sprintf(cfg_file, "%s\\cfg\\sad.cfg", p);
-#else
-            sprintf(cfg_file, "%s/cfg/sad.cfg", p);
-#endif
-            if (!FILE_EXISTS(cfg_file)) cfg_file[0] = 0;
-        } /* if (p != NULL) */
-    } /* else */
-
-    if (strlen(cfg_file) == 0) {
-        p = getenv("XDG_CONFIG_HOME");
-        if (p != NULL) {
-            dbprintf(
-                "%s: debug: `XDG_CONFIG_HOME' variable found, checking for config\n",
-                pname);
-#if !defined(_UNIXSTYLE_PATHS)
-            sprintf(cfg_file, "%s\\sad\\sad.cfg", p);
-#else
-            sprintf(cfg_file, "%s/sad/sad.cfg", p);
-#endif
-            if (!FILE_EXISTS(cfg_file)) cfg_file[0] = 0;
-        } /* if (p != NULL) */
-    } /* else */
-
-    if (strlen(cfg_file) > 0) {
+    if (try_config_location(cfg_file, "HOME", "sad.cfg")
+        || try_config_location(cfg_file, "XDG_CONFIG_HOME", "sad/sad.cfg")
+        || try_config_location(cfg_file, "WTDIR", "cfg/sad.cfg")) {
         dbprintf("%s: debug: `%s' found, getting arguments...\n", pname, cfg_file);
         ex_argc = fmakeargs(cfg_file, &ex_argv);
         if (ex_argc != 0) {
@@ -213,9 +213,10 @@ int main(int argc, char** argv)
         else
             dbprintf("%s: debug: no cfg arguments found.\n", pname);
         free_makeargs(ex_argc, ex_argv);
-    } /* if (strlen(cfg_file) > 0) */
-    else
+    } /* if config file found */
+    else {
         dbprintf("%s: debug: no cfg file found.\n", pname);
+    }
 
     /*********************************************/
     /* Get options from ENV variable if it exits */

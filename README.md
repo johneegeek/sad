@@ -17,7 +17,11 @@ SAD writes various representations of files or streams to standard output. Unlik
 - **Configuration**: Save preferences in config files or environment variables
 - **Cross-Platform**: Works on Linux, macOS, and Windows
 
-## Building
+## Binaries
+Binaries are available for Windows, Mac and Linux. See the "Releases" section in GitHub.
+If the prebuilt binaries don't work for you, it is recommend you build from source.
+
+## Building From Source
 
 SAD uses CMake for building across all platforms. For detailed build instructions, see [BUILD.md](BUILD.md).
 
