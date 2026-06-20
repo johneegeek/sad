@@ -24,7 +24,10 @@ Pre-built binaries are available for Windows, macOS, and Linux in the [Releases]
 ### macOS
 
 1. Download `sad-vX.X.X-macos-x64` from the latest release
-2. **Bypass Gatekeeper warning** (required on first run):
+2. **Bypass Gatekeeper warning** (required on first run)
+<br>The Mac built executable is unsigned so will give a untrusted/malware type
+warning. If you are worried about this warning, it is recommend that you [build from
+source](#building-from-source), otherwise you can bypass the warning as follows:
    ```bash
    # Remove quarantine attribute
    xattr -d com.apple.quarantine sad-vX.X.X-macos-x64
