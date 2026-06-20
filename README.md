@@ -267,7 +267,7 @@ Copyright © 1997-2026
 
 ## Documentation
 
-For complete documentation, see [doc/sad.html](doc/sad.html).
+For complete documentation, see [doc/sad.md](doc/sad.md).
 
 ## Contributing
 
