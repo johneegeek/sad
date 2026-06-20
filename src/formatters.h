@@ -1,15 +1,17 @@
-/*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\
- Output Formatters Module
-
- This module contains the low-level formatting functions that convert binary
- data into various text representations (hex, decimal, octal, binary, etc.)
-\*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*/
+/*******************************************************************************
+ * SAD - Output Formatters Module Header
+ *
+ * Low-level formatters converting binary data to text representations
+ *
+ * Copyright (c) 1997-2026 John Kiernan
+ * Licensed under MIT License - see LICENSE file for details
+ ******************************************************************************/
 #ifndef _FORMATTERS_H
 #define _FORMATTERS_H
 
-#include <stdio.h>
-#include <stdint.h>
 #include <stdbool.h>
+#include <stdint.h>
+#include <stdio.h>
 
 /* External global variables used by formatters (defined in sad.c) */
 extern int      columns;
@@ -37,7 +39,7 @@ extern bool     columns_selected;
 
  Returns: void
 \*****************************************************************************/
-void print_offset(FILE *outfp, uint32_t offvalue);
+void print_offset(FILE* outfp, uint32_t offvalue);
 
 /*****************************************************************************\
  Function: write_fmtline_bin()
@@ -54,8 +56,8 @@ void print_offset(FILE *outfp, uint32_t offvalue);
 
  Returns: true on success, false on failure
 \*****************************************************************************/
-bool write_fmtline_bin(FILE *fp, uint32_t current_offset, void *buffer,
-                       uint32_t count, int data_size, bool iseof);
+bool write_fmtline_bin(FILE* fp, uint32_t current_offset, void* buffer, uint32_t count,
+                       int data_size, bool iseof);
 
 /*****************************************************************************\
  Function: write_fmtline_hex()
@@ -72,8 +74,8 @@ bool write_fmtline_bin(FILE *fp, uint32_t current_offset, void *buffer,
 
  Returns: true on success, false on failure
 \*****************************************************************************/
-bool write_fmtline_hex(FILE *fp, uint32_t current_offset, void *buffer,
-                       uint32_t count, int data_size, bool iseof);
+bool write_fmtline_hex(FILE* fp, uint32_t current_offset, void* buffer, uint32_t count,
+                       int data_size, bool iseof);
 
 /*****************************************************************************\
  Function: write_fmtline_dec()
@@ -90,8 +92,8 @@ bool write_fmtline_hex(FILE *fp, uint32_t current_offset, void *buffer,
 
  Returns: true on success, false on failure
 \*****************************************************************************/
-bool write_fmtline_dec(FILE *fp, uint32_t current_offset, void *buffer,
-                       uint32_t count, int data_size, bool iseof);
+bool write_fmtline_dec(FILE* fp, uint32_t current_offset, void* buffer, uint32_t count,
+                       int data_size, bool iseof);
 
 /*****************************************************************************\
  Function: write_fmtline_oct()
@@ -108,8 +110,8 @@ bool write_fmtline_dec(FILE *fp, uint32_t current_offset, void *buffer,
 
  Returns: true on success, false on failure
 \*****************************************************************************/
-bool write_fmtline_oct(FILE *fp, uint32_t current_offset, void *buffer,
-                       uint32_t count, int data_size, bool iseof);
+bool write_fmtline_oct(FILE* fp, uint32_t current_offset, void* buffer, uint32_t count,
+                       int data_size, bool iseof);
 
 /*****************************************************************************\
  Function: write_fmtline_signed()
@@ -126,7 +128,7 @@ bool write_fmtline_oct(FILE *fp, uint32_t current_offset, void *buffer,
 
  Returns: true on success, false on failure
 \*****************************************************************************/
-bool write_fmtline_signed(FILE *fp, uint32_t current_offset, void *buffer,
+bool write_fmtline_signed(FILE* fp, uint32_t current_offset, void* buffer,
                           uint32_t count, int data_size, bool iseof);
 
 /*****************************************************************************\
@@ -144,7 +146,7 @@ bool write_fmtline_signed(FILE *fp, uint32_t current_offset, void *buffer,
 
  Returns: true on success, false on failure
 \*****************************************************************************/
-bool write_fmtline_float(FILE *fp, uint32_t current_offset, void *buffer,
+bool write_fmtline_float(FILE* fp, uint32_t current_offset, void* buffer,
                          uint32_t count, int data_size, bool iseof);
 
 #endif /* !_FORMATTERS_H */

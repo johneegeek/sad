@@ -1,15 +1,17 @@
-/*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\
- Dumpers Module
-
- This module contains the high-level dump orchestration functions that
- read files and call the appropriate formatters based on the selected mode.
-\*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*/
+/*******************************************************************************
+ * SAD - Dumpers Module Header
+ *
+ * High-level dump orchestration - reads files and calls formatters
+ *
+ * Copyright (c) 1997-2026 John Kiernan
+ * Licensed under MIT License - see LICENSE file for details
+ ******************************************************************************/
 #ifndef _DUMPERS_H
 #define _DUMPERS_H
 
-#include <stdio.h>
-#include <stdint.h>
 #include <stdbool.h>
+#include <stdint.h>
+#include <stdio.h>
 
 /* External global variables used by dumpers (defined in sad.c) */
 extern uint16_t dump_mode;
@@ -32,7 +34,7 @@ extern bool     show_spaces;
 
  Returns: true on success, false on failure
 \*****************************************************************************/
-bool dump_file(FILE *infile_ptr, FILE *outfile_ptr);
+bool dump_file(FILE* infile_ptr, FILE* outfile_ptr);
 
 /*****************************************************************************\
  Function: dump_file_ascii()
@@ -45,7 +47,7 @@ bool dump_file(FILE *infile_ptr, FILE *outfile_ptr);
 
  Returns: true on success, false on failure
 \*****************************************************************************/
-bool dump_file_ascii(FILE *ifile, FILE *ofile);
+bool dump_file_ascii(FILE* ifile, FILE* ofile);
 
 /*****************************************************************************\
  Function: dump_file_asciifixed()
@@ -59,7 +61,7 @@ bool dump_file_ascii(FILE *ifile, FILE *ofile);
 
  Returns: true on success, false on failure
 \*****************************************************************************/
-bool dump_file_asciifixed(FILE *ifile, FILE *ofile, uint32_t cur_offset);
+bool dump_file_asciifixed(FILE* ifile, FILE* ofile, uint32_t cur_offset);
 
 /*****************************************************************************\
  Function: dump_file_binary()
@@ -73,7 +75,7 @@ bool dump_file_asciifixed(FILE *ifile, FILE *ofile, uint32_t cur_offset);
 
  Returns: true on success, false on failure
 \*****************************************************************************/
-bool dump_file_binary(FILE *ifile, FILE *ofile, uint32_t offset);
+bool dump_file_binary(FILE* ifile, FILE* ofile, uint32_t offset);
 
 /*****************************************************************************\
  Function: dump_file_control()
@@ -86,7 +88,7 @@ bool dump_file_binary(FILE *ifile, FILE *ofile, uint32_t offset);
 
  Returns: true on success, false on failure
 \*****************************************************************************/
-bool dump_file_control(FILE *ifile, FILE *ofile);
+bool dump_file_control(FILE* ifile, FILE* ofile);
 
 /*****************************************************************************\
  Function: dump_file_dec()
@@ -100,7 +102,7 @@ bool dump_file_control(FILE *ifile, FILE *ofile);
 
  Returns: true on success, false on failure
 \*****************************************************************************/
-bool dump_file_dec(FILE *ifile, FILE *ofile, uint32_t offset);
+bool dump_file_dec(FILE* ifile, FILE* ofile, uint32_t offset);
 
 /*****************************************************************************\
  Function: dump_file_float()
@@ -115,7 +117,7 @@ bool dump_file_dec(FILE *ifile, FILE *ofile, uint32_t offset);
 
  Returns: true on success, false on failure
 \*****************************************************************************/
-bool dump_file_float(FILE *ifile, FILE *ofile, int abs_data_width, uint32_t offset);
+bool dump_file_float(FILE* ifile, FILE* ofile, int abs_data_width, uint32_t offset);
 
 /*****************************************************************************\
  Function: dump_file_hex()
@@ -129,7 +131,7 @@ bool dump_file_float(FILE *ifile, FILE *ofile, int abs_data_width, uint32_t offs
 
  Returns: true on success, false on failure
 \*****************************************************************************/
-bool dump_file_hex(FILE *ifile, FILE *ofile, uint32_t offset);
+bool dump_file_hex(FILE* ifile, FILE* ofile, uint32_t offset);
 
 /*****************************************************************************\
  Function: dump_file_oct()
@@ -143,7 +145,7 @@ bool dump_file_hex(FILE *ifile, FILE *ofile, uint32_t offset);
 
  Returns: true on success, false on failure
 \*****************************************************************************/
-bool dump_file_oct(FILE *ifile, FILE *ofile, uint32_t offset);
+bool dump_file_oct(FILE* ifile, FILE* ofile, uint32_t offset);
 
 /*****************************************************************************\
  Function: dump_file_signed()
@@ -157,6 +159,6 @@ bool dump_file_oct(FILE *ifile, FILE *ofile, uint32_t offset);
 
  Returns: true on success, false on failure
 \*****************************************************************************/
-bool dump_file_signed(FILE *ifile, FILE *ofile, uint32_t offset);
+bool dump_file_signed(FILE* ifile, FILE* ofile, uint32_t offset);
 
 #endif /* !_DUMPERS_H */

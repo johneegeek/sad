@@ -1,16 +1,21 @@
-/*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\
- # Debugging printf functions
- # Module: dprintf.c
- #
- # History:
- #
-\*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*/
-#include <stdio.h>
-#include <stdarg.h>
-#include "jkcommon.h"
+/*******************************************************************************
+ * SAD - Debug Printf Module
+ *
+ * Debug printf functions for conditional debug output
+ *
+ * Copyright (c) 1997-2026 John Kiernan
+ * Licensed under MIT License - see LICENSE file for details
+ ******************************************************************************/
 #include "dprintf.h"
 
-                                 
+#include "jkcommon.h"
+
+#include <stdarg.h>
+#include <stdio.h>
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-parameter"
+
 /*****************************************************************************\
  Function: dbprintf()
 
@@ -18,20 +23,21 @@
 
  Returns:
 \*****************************************************************************/
-void dbprintf( char *format_sz, ... )
+void dbprintf(char* format_sz, ...)
 {
 #ifdef DEBUG
     extern bool print_debug_messages;
-    va_list arg_list;
+    va_list     arg_list;
 
     /* Display only if print_yes is set */
-    if ( print_debug_messages ) 
-    {
-        va_start( arg_list, format_sz );
-        (void) vprintf(format_sz, arg_list );
-        va_end( arg_list );
+    if (print_debug_messages) {
+        va_start(arg_list, format_sz);
+        (void)vprintf(format_sz, arg_list);
+        va_end(arg_list);
         (void)fflush(stdout);
     }
 #endif
 } /* dprintf() */
 /*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*/
+
+#pragma clang diagnostic pop

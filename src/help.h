@@ -1,8 +1,11 @@
-/*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\
- Help Module
-
- This module provides help and version information display.
-\*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*/
+/*******************************************************************************
+ * SAD - Help Module Header
+ *
+ * Help and version information display
+ *
+ * Copyright (c) 1997-2026 John Kiernan
+ * Licensed under MIT License - see LICENSE file for details
+ ******************************************************************************/
 #ifndef _HELP_H
 #define _HELP_H
 

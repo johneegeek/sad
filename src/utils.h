@@ -1,13 +1,16 @@
-/*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\
- Utils Module
-
- This module contains utility functions used throughout the application.
-\*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*/
+/*******************************************************************************
+ * SAD - Utils Module Header
+ *
+ * General utility functions used throughout the application
+ *
+ * Copyright (c) 1997-2026 John Kiernan
+ * Licensed under MIT License - see LICENSE file for details
+ ******************************************************************************/
 #ifndef _UTILS_H
 #define _UTILS_H
 
-#include <stdio.h>
 #include <stdbool.h>
+#include <stdio.h>
 
 /*****************************************************************************\
  Function: file_is_bin()
@@ -19,7 +22,7 @@
 
  Returns: true if file appears to be binary, false if it appears to be text
 \*****************************************************************************/
-bool file_is_bin(char *filename_sz);
+bool file_is_bin(char* filename_sz);
 
 /*****************************************************************************\
  Function: get_input()
@@ -33,6 +36,6 @@ bool file_is_bin(char *filename_sz);
 
  Returns: Character read, or EOF
 \*****************************************************************************/
-int get_input(FILE *fp);
+int get_input(FILE* fp);
 
 #endif /* !_UTILS_H */
