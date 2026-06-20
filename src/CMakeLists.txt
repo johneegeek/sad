@@ -38,6 +38,13 @@ elseif(MSVC)
     )
 endif()
 
+# Disable conversion warnings for makeargs.c (size_t to unsigned long, safe in practice)
+if(MSVC)
+    set_source_files_properties(makeargs.c PROPERTIES
+        COMPILE_FLAGS "/wd4267"
+    )
+endif()
+
 # Set target properties
 set_target_properties(sad PROPERTIES
     C_STANDARD 99
@@ -69,6 +76,7 @@ elseif(MSVC)
     )
     target_compile_definitions(sad PRIVATE
         _CRT_SECURE_NO_WARNINGS
+        _CRT_NONSTDC_NO_DEPRECATE
         $<$<CONFIG:Release>:NDEBUG>
     )
 elseif(CMAKE_COMPILER_IS_GNUCC OR CMAKE_C_COMPILER_ID MATCHES "Clang")

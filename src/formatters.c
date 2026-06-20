@@ -1943,24 +1943,14 @@ bool write_fmtline_float(FILE* fp, uint32_t current_offset, void* buffer,
                 ascii_str[i + 1] = 0;
 
                 if (!big_endian) {
-#if !defined(__GNUC__)
-                    sprintf(data_str, "%*.*I64g", float_width, float_precision,
-                            (double)(*((double*)p_qword)));
-#else
                     sprintf(data_str, "%*.*g", float_width, float_precision,
                             (double)(*((double*)p_qword)));
-#endif
                     ++p_qword;
                 } /* if (little-endian) */
                 else {
                     *p_qword = BYTE_SWAP_64(*p_qword);
-#if !defined(__GNUC__)
-                    sprintf(data_str, "%*.*I64g", float_width, float_precision,
-                            (double)(*((double*)p_qword)));
-#else
                     sprintf(data_str, "%*.*g", float_width, float_precision,
                             (double)(*((double*)p_qword)));
-#endif
                     ++p_qword;
                 } /* else */
 
