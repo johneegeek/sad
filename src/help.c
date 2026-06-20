@@ -121,6 +121,7 @@ void show_help(void)
     fprintf(fp, "\nHexadecimal=0xNNNN, Octal=0oNNNN, Binary=0bNNNN\n");
     fprintf(fp, "\n");
     fprintf(fp, "Report issues to <john@yellowsocks.com>\n");
+    fprintf(fp, "    or github.com/johneegeek/sad/issues\n");
 
 #if !defined(__DOS16__)
     if (use_pager) (void)pclose(fp);
