@@ -12,13 +12,10 @@
 #include <stdint.h>
 #include <string>
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wignored-qualifiers"
-
 using namespace std;
 
-inline const char make_ucase(const char ch)
-{ return ((const char)std::toupper((int)ch)); }
+inline char make_ucase(const char ch)
+{ return ((char)std::toupper((int)ch)); }
 
 /*****************************************************************************\
  Function: string_to_upper()
@@ -177,5 +174,3 @@ extern "C" uint64_t string_to_uint64(const char* val, bool* valid)
     return (_strnum(value, requested_radix, *valid));
 
 } // uint64_t string_to_uint64(const char *val)
-
-#pragma clang diagnostic pop

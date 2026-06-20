@@ -13,9 +13,6 @@
 #include <stdarg.h>
 #include <stdio.h>
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wunused-parameter"
-
 /*****************************************************************************\
  Function: dbprintf()
 
@@ -39,5 +36,3 @@ void dbprintf(char* format_sz, ...)
 #endif
 } /* dprintf() */
 /*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*/
-
-#pragma clang diagnostic pop

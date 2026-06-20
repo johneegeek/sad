@@ -16,6 +16,28 @@ set(sad_SRCS
 # Create the executable
 add_executable(sad ${sad_SRCS})
 
+# Disable format warnings for formatters.c (intentional custom formatting)
+if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_C_COMPILER_ID MATCHES "Clang")
+    set_source_files_properties(formatters.c PROPERTIES
+        COMPILE_FLAGS "-Wno-format"
+    )
+elseif(MSVC)
+    set_source_files_properties(formatters.c PROPERTIES
+        COMPILE_FLAGS "/wd4774"
+    )
+endif()
+
+# Disable unused-parameter warnings for dprintf.c (functions #ifdef'd out in RELEASE)
+if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_C_COMPILER_ID MATCHES "Clang")
+    set_source_files_properties(dprintf.c PROPERTIES
+        COMPILE_FLAGS "-Wno-unused-parameter"
+    )
+elseif(MSVC)
+    set_source_files_properties(dprintf.c PROPERTIES
+        COMPILE_FLAGS "/wd4100"
+    )
+endif()
+
 # Set target properties
 set_target_properties(sad PROPERTIES
     C_STANDARD 99

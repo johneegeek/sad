@@ -20,9 +20,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wformat"
-
 /* External variables (defined in sad.c) */
 extern char* pname;
 
@@ -2033,5 +2030,3 @@ bool write_fmtline_float(FILE* fp, uint32_t current_offset, void* buffer,
 }
 
 /*lint -restore*/
-
-#pragma clang diagnostic pop

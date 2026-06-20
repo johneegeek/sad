@@ -312,6 +312,94 @@ cmake --install build
 
 The new CMake system automatically detects your platform and compiler - no configuration script needed!
 
+## Automated Release Builds
+
+The repository includes a GitHub Actions workflow that automatically builds binaries for macOS, Windows, and Linux when you create a release tag.
+
+### Creating a Release
+
+To trigger an automated release build:
+
+```bash
+# 1. Ensure all changes are committed
+git add .
+git commit -m "Prepare for release v2.6.1"
+git push
+
+# 2. Create an annotated tag
+git tag -a v2.6.1 -m "Release version 2.6.1"
+
+# 3. Push the tag to GitHub
+git push origin v2.6.1
+```
+
+### What Happens Automatically
+
+When you push a tag (e.g., `v2.6.1`), GitHub Actions will:
+
+1. **Build on three platforms in parallel:**
+   - macOS (x64) → `sad-v2.6.1-macos-x64`
+   - Windows (x64) → `sad-v2.6.1-windows-x64.exe`
+   - Ubuntu Linux (x64) → `sad-v2.6.1-linux-x64`
+
+2. **Create a GitHub Release** with:
+   - All three binaries attached and ready to download
+   - Auto-generated release notes from commit messages
+   - The tag as the release version
+
+### Monitoring Builds
+
+To watch the automated builds:
+
+1. Go to your repository on GitHub
+2. Click the **Actions** tab
+3. You'll see the "Release Binaries" workflow running
+4. Click on the workflow run to see real-time build progress for each platform
+
+### Downloading Binaries
+
+Once the workflow completes:
+
+1. Go to your repository on GitHub
+2. Click the **Releases** section (right sidebar)
+3. Find your version (e.g., `v2.6.1`)
+4. Download the binary for your platform
+
+Users can download pre-built binaries instead of building from source.
+
+### Managing Tags
+
+List all tags:
+```bash
+git tag
+```
+
+View tag details:
+```bash
+git show v2.6.1
+```
+
+Delete a tag (if needed):
+```bash
+# Delete locally
+git tag -d v2.6.1
+
+# Delete from GitHub
+git push origin :refs/tags/v2.6.1
+```
+
+**Note:** Deleting a tag from GitHub will not automatically delete the associated release. You'll need to delete the release manually from the GitHub web interface if desired.
+
+### Workflow Location
+
+The automated build workflow is defined in `.github/workflows/release.yml`. The workflow:
+
+- Uses GitHub's hosted runners (no setup required)
+- Builds with CMake Release configuration
+- Includes full git history for version information
+- Sets proper executable permissions on Unix binaries
+- Names binaries with the version tag automatically
+
 ## Getting Help
 
 For CMake-specific help:
