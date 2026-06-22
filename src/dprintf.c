@@ -16,10 +16,10 @@
  ******************************************************************************/
 #include "dprintf.h"
 
-#include "jkcommon.h"
-
 #include <stdarg.h>
 #include <stdio.h>
+
+#include "jkcommon.h"
 
 /*****************************************************************************\
  Function: dbprintf()

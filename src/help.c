@@ -17,14 +17,14 @@
 
 #include "help.h"
 
-#include "platform.h"
-#include "sad.h"
-#include "version.h"
-
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#include "platform.h"
+#include "sad.h"
+#include "version.h"
 
 /* External variables (defined in sad.c) */
 extern char* pname;
@@ -100,14 +100,13 @@ void show_help(void)
 
     fprintf(fp, "   -n<n>,--columns=<n>      Number of columns to display per line.\n");
     fprintf(
-        fp,
-        "   -w<n>,--width=<n>        Data width in bytes to display, default is %d.\n",
-        data_width);
+      fp,
+      "   -w<n>,--width=<n>        Data width in bytes to display, default is %d.\n",
+      data_width);
     fprintf(fp, "   -1,   --bytes,--8bit     Display in bytes (same as --width=1).\n");
     fprintf(fp, "   -2,   --words,--16bit    Display in words (same as --width=2).\n");
     fprintf(
-        fp,
-        "   -4,   --dwords,--32bit   Display in double words (same as --width=4).\n");
+      fp, "   -4,   --dwords,--32bit   Display in double words (same as --width=4).\n");
     fprintf(fp,
             "   -8,   --qwords,--64bit   Display in quad words (same as --width=8).\n");
 
@@ -132,7 +131,8 @@ void show_help(void)
     fprintf(fp, "    or github.com/johneegeek/sad/issues\n");
 
 #if !defined(__DOS16__)
-    if (use_pager) (void)pclose(fp);
+    if (use_pager)
+        (void)pclose(fp);
 #endif
 
 } /* show_help() */
@@ -160,11 +160,11 @@ void show_version(void)
     fprintf(stderr, " for Apple.\n");
 #elif defined(__QNX__)
     fprintf(stderr, " for QNX.");
-#if defined(__BIG_ENDIAN__)
+    #if defined(__BIG_ENDIAN__)
     fprintf(stderr, " (big-endian)\n");
-#else
+    #else
     fprintf(stderr, " (little-endian)\n");
-#endif
+    #endif
 #elif defined(__UNIXLIKE__)
     fprintf(stderr, " for Unix.\n");
 #else

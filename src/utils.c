@@ -17,14 +17,14 @@
 
 #include "utils.h"
 
-#include "dprintf.h"
-#include "jkcommon.h"
-#include "platform.h"
-
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
+
+#include "dprintf.h"
+#include "jkcommon.h"
+#include "platform.h"
 
 /* External variables (defined in sad.c) */
 extern int     data_width;
@@ -45,7 +45,8 @@ bool file_is_bin(char* filename_sz)
     int   iChIn;
 
     posbin_fl = fopen(filename_sz, "r");
-    if (posbin_fl == NULL) return (false);
+    if (posbin_fl == NULL)
+        return (false);
 
     while ((iChIn = fgetc(posbin_fl)) != EOF) {
         if (iChIn < 0x7 || iChIn > 0x7E) {
@@ -73,7 +74,9 @@ int get_input(FILE* fp)
 {
     static uint64_t char_count = 0;
 
-    if (data_end_count == 0) { return (fgetc(fp)); } /* if (data_count == 0) */
+    if (data_end_count == 0) {
+        return (fgetc(fp));
+    } /* if (data_count == 0) */
     else {
         int input_char;
 
@@ -86,16 +89,16 @@ int get_input(FILE* fp)
             if (input_char != EOF) /* we have all the requested data, but theres more */
             {
                 show_eof_marker
-                    = false; /*not really eof, so we don't want to show it */
+                  = false; /*not really eof, so we don't want to show it */
                 return ((int)EOF);
             } /* if (input_char != EOF) */
-        }     /* else */
+        } /* else */
 
     } /* else */
 
     dbprintf(
-        "!! DEBUG WARNING: should never have reached this line. Module %s, line %d\n",
-        __FILE__, __LINE__);
+      "!! DEBUG WARNING: should never have reached this line. Module %s, line %d\n",
+      __FILE__, __LINE__);
     return ((int)EOF);
 
 } /* get_input() */

@@ -89,8 +89,8 @@ extern char* H_CCTable[];
 #define OFFSET_OCT 0x3
 
 #if !defined(__GNUC__)
-#define popen  _popen
-#define pclose _pclose
+    #define popen  _popen
+    #define pclose _pclose
 #endif
 
 #define FILE_EXISTS(f) (_access(f, 0) == 0)
@@ -102,19 +102,23 @@ extern char* H_CCTable[];
 #define BYTE_SWAP_16(data) ((((data) & 0x00FF) << 8) | (((data) & 0xFF00) >> 8))
 
 #ifdef __GNUC__
-#define BYTE_SWAP_64(data)                                                             \
-    ((((data) & 0x00000000000000ffLL) << 56) | (((data) & 0x000000000000ff00LL) << 40) \
-     | (((data) & 0x0000000000ff0000LL) << 24)                                         \
-     | (((data) & 0x00000000ff000000LL) << 8) | (((data) & 0x000000ff00000000LL) >> 8) \
-     | (((data) & 0x0000ff0000000000LL) >> 24)                                         \
-     | (((data) & 0x00ff000000000000LL) >> 40)                                         \
-     | (((data) & 0xff00000000000000LL) >> 56))
+    #define BYTE_SWAP_64(data)                     \
+        ((((data) & 0x00000000000000ffLL) << 56)   \
+         | (((data) & 0x000000000000ff00LL) << 40) \
+         | (((data) & 0x0000000000ff0000LL) << 24) \
+         | (((data) & 0x00000000ff000000LL) << 8)  \
+         | (((data) & 0x000000ff00000000LL) >> 8)  \
+         | (((data) & 0x0000ff0000000000LL) >> 24) \
+         | (((data) & 0x00ff000000000000LL) >> 40) \
+         | (((data) & 0xff00000000000000LL) >> 56))
 #else
-#define BYTE_SWAP_64(data)                                                          \
-    ((((data) & 0x00000000000000ff) << 56) | (((data) & 0x000000000000ff00) << 40)  \
-     | (((data) & 0x0000000000ff0000) << 24) | (((data) & 0x00000000ff000000) << 8) \
-     | (((data) & 0x000000ff00000000) >> 8) | (((data) & 0x0000ff0000000000) >> 24) \
-     | (((data) & 0x00ff000000000000) >> 40) | (((data) & 0xff00000000000000) >> 56))
+    #define BYTE_SWAP_64(data)                                                         \
+        ((((data) & 0x00000000000000ff) << 56) | (((data) & 0x000000000000ff00) << 40) \
+         | (((data) & 0x0000000000ff0000) << 24)                                       \
+         | (((data) & 0x00000000ff000000) << 8) | (((data) & 0x000000ff00000000) >> 8) \
+         | (((data) & 0x0000ff0000000000) >> 24)                                       \
+         | (((data) & 0x00ff000000000000) >> 40)                                       \
+         | (((data) & 0xff00000000000000) >> 56))
 #endif
 
 #define _MAC_STR(z) _MAC_TMP(z)

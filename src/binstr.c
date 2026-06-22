@@ -14,12 +14,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  ******************************************************************************/
-#include "jkcommon.h"
-#include "platform.h"
-
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
+
+#include "jkcommon.h"
+#include "platform.h"
 
 #define BS_BITS_PER_BYTE 8
 

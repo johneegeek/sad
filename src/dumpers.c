@@ -17,17 +17,17 @@
 
 #include "dumpers.h"
 
-#include "formatters.h"
-#include "jkcommon.h"
-#include "platform.h"
-#include "sad.h"
-
 #include <ctype.h>
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#include "formatters.h"
+#include "jkcommon.h"
+#include "platform.h"
+#include "sad.h"
 
 /* External variables and functions (defined in sad.c) */
 extern char* pname;
@@ -49,7 +49,8 @@ bool dump_file(FILE* infile_ptr, FILE* outfile_ptr)
         while (dump_file_offset < total_bytes) {
             /*lint -esym(550,junk)*/
             int junk;
-            if ((junk = fgetc(infile_ptr)) == EOF) return true;
+            if ((junk = fgetc(infile_ptr)) == EOF)
+                return true;
             ++dump_file_offset;
         } /* while (current_total < total_bytes) */
 
@@ -131,7 +132,8 @@ bool dump_file_ascii(FILE* ifile, FILE* ofile)
 
     while (in_char != EOF) {
         if ((in_char = get_input(ifile)) == EOF) {
-            if (show_eof_marker) fprintf(ofile, "%ceof%c", E_BEGIN, E_END);
+            if (show_eof_marker)
+                fprintf(ofile, "%ceof%c", E_BEGIN, E_END);
             fflush(ofile);
             continue;
         }
@@ -140,7 +142,8 @@ bool dump_file_ascii(FILE* ifile, FILE* ofile)
         {
             /* in_char is in CtrlTable */
             fprintf(ofile, "%c%s%c", B_BEGIN, CtrlTable[in_char], B_END);
-            if (in_char == CH_NL) fprintf(ofile, "\n");
+            if (in_char == CH_NL)
+                fprintf(ofile, "\n");
             fflush(ofile);
             continue;
         }
@@ -180,13 +183,15 @@ bool dump_file_asciifixed(FILE* ifile, FILE* ofile, uint32_t cur_offset)
         }
 
         if ((in_char = get_input(ifile)) == EOF) {
-            if (show_eof_marker) fprintf(ofile, "%ceof%c ", E_BEGIN, E_END);
+            if (show_eof_marker)
+                fprintf(ofile, "%ceof%c ", E_BEGIN, E_END);
             fflush(ofile);
             continue;
         }
 
         if (ascii_count == 0) {
-            if (show_offset) print_offset(ofile, cur_offset);
+            if (show_offset)
+                print_offset(ofile, cur_offset);
             cur_offset += DEFAULT_COLUMNS_ASCII;
         }
 
@@ -328,7 +333,8 @@ bool dump_file_binary(FILE* ifile, FILE* ofile, uint32_t offset)
         else
             ++data_count;
 
-        if (in_char == EOF) break;
+        if (in_char == EOF)
+            break;
 
     } /* while (1) */
 
@@ -347,7 +353,8 @@ bool dump_file_control(FILE* ifile, FILE* ofile)
 
     while (in_char != EOF) {
         if ((in_char = get_input(ifile)) == EOF) {
-            if (show_eof_marker) fprintf(ofile, "%ceof%c", E_BEGIN, E_END);
+            if (show_eof_marker)
+                fprintf(ofile, "%ceof%c", E_BEGIN, E_END);
             fflush(ofile);
             continue;
         }
@@ -356,7 +363,8 @@ bool dump_file_control(FILE* ifile, FILE* ofile)
         {
             /* in_char is in CtrlTable */
             fprintf(ofile, "%c%s%c", B_BEGIN, CCTable[in_char], B_END);
-            if (in_char == CH_NL) fprintf(ofile, "\n");
+            if (in_char == CH_NL)
+                fprintf(ofile, "\n");
             fflush(ofile);
             continue;
         }
@@ -483,7 +491,8 @@ bool dump_file_dec(FILE* ifile, FILE* ofile, uint32_t offset)
         else
             ++data_count;
 
-        if (in_char == EOF) break;
+        if (in_char == EOF)
+            break;
 
     } /* while (1) */
 
@@ -519,7 +528,7 @@ bool dump_file_float(FILE* ifile, FILE* ofile, int abs_data_width, uint32_t offs
                         pname, abs_data_width);
                 break;
         } /* switch (abs_data_width) */
-    }     /* if (!columns_selected) */
+    } /* if (!columns_selected) */
 
     first_line    = true;
     duplicate     = false;
@@ -591,7 +600,8 @@ bool dump_file_float(FILE* ifile, FILE* ofile, int abs_data_width, uint32_t offs
         else
             ++data_count;
 
-        if (in_char == EOF) break;
+        if (in_char == EOF)
+            break;
 
     } /* while (1) */
 
@@ -711,7 +721,8 @@ bool dump_file_hex(FILE* ifile, FILE* ofile, uint32_t offset)
         else
             ++data_count;
 
-        if (in_char == EOF) break;
+        if (in_char == EOF)
+            break;
 
     } /* while (1) */
 
@@ -824,7 +835,8 @@ bool dump_file_oct(FILE* ifile, FILE* ofile, uint32_t offset)
         else
             ++data_count;
 
-        if (in_char == EOF) break;
+        if (in_char == EOF)
+            break;
 
     } /* while (1) */
 
@@ -937,7 +949,8 @@ bool dump_file_signed(FILE* ifile, FILE* ofile, uint32_t offset)
         else
             ++data_count;
 
-        if (in_char == EOF) break;
+        if (in_char == EOF)
+            break;
 
     } /* while (1) */
 

@@ -15,19 +15,19 @@
  * SOFTWARE.
  ******************************************************************************/
 
-#include "platform.h"
-
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#include "platform.h"
 #if defined(__WATCOMC__)
-#include <sys/types.h>
+    #include <sys/types.h>
 #endif
 #include <sys/stat.h>
 
 #if defined(__DJGPP__) || defined(__UNIXLIKE__)
-#include <errno.h>
+    #include <errno.h>
 #endif
 
 static char* module_name = "makeargs";
@@ -99,13 +99,15 @@ int env_makeargs(const char* env_str, char*** nargv)
 
     tmp_string = getenv(env_str);
     /* make a copy of string returned, because you cant modify it */
-    if (tmp_string == NULL) return 0;
+    if (tmp_string == NULL)
+        return 0;
 
     scratch = (char*)malloc(strlen(tmp_string) * sizeof(char) + 1);
     CHECK_MEM_ERROR(scratch);
     strcpy(scratch, tmp_string);
     scratch_size = strlen(scratch);
-    if (scratch_size == 0) return 0;
+    if (scratch_size == 0)
+        return 0;
 
     strip_comments_cr(scratch, scratch_size);
 
@@ -213,8 +215,10 @@ void free_makeargs(int margc, char** margv)
 {
     int i;
 
-    if (margc == 0) return;
-    if (margv == NULL) return;
+    if (margc == 0)
+        return;
+    if (margv == NULL)
+        return;
 
     for (i = 0; i < margc; i++) free(margv[i]);
 

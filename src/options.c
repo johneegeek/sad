@@ -17,17 +17,17 @@
 
 #include "options.h"
 
-#include "getopt.h"
-#include "help.h"
-#include "jkcommon.h"
-#include "platform.h"
-#include "sad.h"
-
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#include "getopt.h"
+#include "help.h"
+#include "jkcommon.h"
+#include "platform.h"
+#include "sad.h"
 
 /* External variables (defined in sad.c) */
 extern char*    pname;
@@ -77,59 +77,60 @@ bool process_options(int argc, char** argv)
         int                  option_index   = 0;
         /*@ignore@*/
         static struct option long_options[] = {
-            {          "ascii",       no_argument, 0, 'a'},
-            {"ascii-formatted",       no_argument, 0, 'A'},
-            {         "binary",       no_argument, 0, 'b'},
-            {"formatted-ascii",       no_argument, 0, 'A'},
-            {     "big-endian",       no_argument, 0, 'B'},
-            {  "little-endian",       no_argument, 0, 'L'},
-            {        "columns", required_argument, 0, 'n'},
-            {        "control",       no_argument, 0, 'c'},
-            {        "decimal",       no_argument, 0, 'd'},
-            {    "show-spaces",       no_argument, 0, 'e'},
-            {         "signed",       no_argument, 0, 's'},
-            {            "hex",       no_argument, 0, 'x'},
-            {          "float",       no_argument, 0, 'f'},
-            {         "double",       no_argument, 0, 'l'},
-            {       "no-ascii",       no_argument, 0, 'I'},
-            {  "no-eof-marker",       no_argument, 0, 'E'},
-            {   "no-highlight",       no_argument, 0, 'H'},
-            {      "no-offset",       no_argument, 0, 'F'},
-            {          "octal",       no_argument, 0, 'o'},
-            {          "pager", optional_argument, 0, 'p'},
-            { "show-duplicate",       no_argument, 0, 'U'},
-            {          "width", required_argument, 0, 'w'},
-            {    "float-width", required_argument, 0, 'W'},
-            {"float-precision", required_argument, 0, 'P'},
-            {          "bytes",       no_argument, 0, '1'},
-            {           "8bit",       no_argument, 0, '1'},
-            {          "words",       no_argument, 0, '2'},
-            {          "16bit",       no_argument, 0, '2'},
-            {         "dwords",       no_argument, 0, '4'},
-            {          "32bit",       no_argument, 0, '4'},
-            {         "qwords",       no_argument, 0, '8'},
-            {          "64bit",       no_argument, 0, '8'},
-            {     "offset-oct",       no_argument, 0, 'q'},
-            {     "offset-dec",       no_argument, 0, 'z'},
-            { "offset-divisor", required_argument, 0, 'V'},
-            {    "start-count", required_argument, 0, 'j'},
-            {   "start-offset", required_argument, 0, 'J'},
-            {          "count", required_argument, 0, 'k'},
-            {     "end-offset", required_argument, 0, 'K'},
+          {"ascii",           no_argument,       0, 'a'},
+          {"ascii-formatted", no_argument,       0, 'A'},
+          {"binary",          no_argument,       0, 'b'},
+          {"formatted-ascii", no_argument,       0, 'A'},
+          {"big-endian",      no_argument,       0, 'B'},
+          {"little-endian",   no_argument,       0, 'L'},
+          {"columns",         required_argument, 0, 'n'},
+          {"control",         no_argument,       0, 'c'},
+          {"decimal",         no_argument,       0, 'd'},
+          {"show-spaces",     no_argument,       0, 'e'},
+          {"signed",          no_argument,       0, 's'},
+          {"hex",             no_argument,       0, 'x'},
+          {"float",           no_argument,       0, 'f'},
+          {"double",          no_argument,       0, 'l'},
+          {"no-ascii",        no_argument,       0, 'I'},
+          {"no-eof-marker",   no_argument,       0, 'E'},
+          {"no-highlight",    no_argument,       0, 'H'},
+          {"no-offset",       no_argument,       0, 'F'},
+          {"octal",           no_argument,       0, 'o'},
+          {"pager",           optional_argument, 0, 'p'},
+          {"show-duplicate",  no_argument,       0, 'U'},
+          {"width",           required_argument, 0, 'w'},
+          {"float-width",     required_argument, 0, 'W'},
+          {"float-precision", required_argument, 0, 'P'},
+          {"bytes",           no_argument,       0, '1'},
+          {"8bit",            no_argument,       0, '1'},
+          {"words",           no_argument,       0, '2'},
+          {"16bit",           no_argument,       0, '2'},
+          {"dwords",          no_argument,       0, '4'},
+          {"32bit",           no_argument,       0, '4'},
+          {"qwords",          no_argument,       0, '8'},
+          {"64bit",           no_argument,       0, '8'},
+          {"offset-oct",      no_argument,       0, 'q'},
+          {"offset-dec",      no_argument,       0, 'z'},
+          {"offset-divisor",  required_argument, 0, 'V'},
+          {"start-count",     required_argument, 0, 'j'},
+          {"start-offset",    required_argument, 0, 'J'},
+          {"count",           required_argument, 0, 'k'},
+          {"end-offset",      required_argument, 0, 'K'},
 
 #ifdef DEBUG
-            {          "debug",       no_argument, 0, 'D'},
+          {"debug",           no_argument,       0, 'D'},
 #endif
-            {           "help",       no_argument, 0, '?'},
-            {        "version",       no_argument, 0, 'v'},
-            {                0,                 0, 0,   0}
+          {"help",            no_argument,       0, '?'},
+          {"version",         no_argument,       0, 'v'},
+          {0,                 0,                 0, 0  }
         };
         /*@end@*/
-        opt = getopt_long(argc, argv,
-                          "bk:j:J:K:flscaAxdeo?Dvp::P:w:W:n:IFHUELB1248qzV:",
-                          long_options, &option_index);
+        opt = getopt_long(
+          argc, argv, "bk:j:J:K:flscaAxdeo?Dvp::P:w:W:n:IFHUELB1248qzV:", long_options,
+          &option_index);
 
-        if (opt == -1) break;
+        if (opt == -1)
+            break;
 
         switch (opt) {
             case 0:
@@ -204,7 +205,8 @@ bool process_options(int argc, char** argv)
 
             case 'p':
                 use_pager = true;
-                if (optarg) strcpy(pager_program, optarg);
+                if (optarg)
+                    strcpy(pager_program, optarg);
                 break;
 #ifdef DEBUG
             case 'D':
@@ -304,7 +306,8 @@ bool process_options(int argc, char** argv)
                     fprintf(stderr, "Program terminated.");
                     exit(7);
                 }
-                if (data_width != 0) data_start_count = bytes / data_width;
+                if (data_width != 0)
+                    data_start_count = bytes / data_width;
                 break;
             case 'j':
                 // data_start_count = atol(optarg);
@@ -325,7 +328,8 @@ bool process_options(int argc, char** argv)
                     fprintf(stderr, "Program terminated.");
                     exit(7);
                 }
-                if (data_width != 0) data_end_count = bytes / data_width;
+                if (data_width != 0)
+                    data_end_count = bytes / data_width;
                 break;
             case 'k':
                 // data_end_count = atol(optarg);

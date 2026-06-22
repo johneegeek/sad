@@ -16,17 +16,17 @@
  ******************************************************************************/
 #include "formatters.h"
 
-#include "binstr.h"
-#include "jkcommon.h"
-#include "platform.h"
-#include "sad.h"
-
 #include <ctype.h>
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#include "binstr.h"
+#include "jkcommon.h"
+#include "platform.h"
+#include "sad.h"
 
 /* External variables (defined in sad.c) */
 extern char* pname;
@@ -35,7 +35,8 @@ void print_offset(FILE* outfp, uint32_t offvalue)
 {
     unsigned long int offset_value = offvalue;
 
-    if (offset_divisor == 0) offset_divisor = 1; // Dont want any division by zero.
+    if (offset_divisor == 0)
+        offset_divisor = 1; // Dont want any division by zero.
 
     offset_value /= offset_divisor;
 
@@ -74,20 +75,25 @@ bool write_fmtline_bin(FILE* fp, uint32_t current_offset, void* buffer, uint32_t
     uint32_t  bytes_per_line;
     char      bin_string[MAX_BIN_STRING];
 
-    if (data_size == 0) return false;
+    if (data_size == 0)
+        return false;
     partial_line = false;
     byte_count   = 0;
 
-    if (iseof) --count;
+    if (iseof)
+        --count;
     elements = (int)count / data_size;
 
-    if (elements < 1 && !show_eof_marker) return true;
+    if (elements < 1 && !show_eof_marker)
+        return true;
 
     bytes_per_line
-        = (((unsigned)columns * (unsigned)data_width * 8) + (unsigned)columns);
-    if (columns % 2) --bytes_per_line;
+      = (((unsigned)columns * (unsigned)data_width * 8) + (unsigned)columns);
+    if (columns % 2)
+        --bytes_per_line;
 
-    if (elements < columns) partial_line = true;
+    if (elements < columns)
+        partial_line = true;
 
     ascii_buf_size = ((unsigned)elements * sizeof(tmp_char)) + 1;
     ascii_str      = (char*)malloc(ascii_buf_size);
@@ -102,7 +108,8 @@ bool write_fmtline_bin(FILE* fp, uint32_t current_offset, void* buffer, uint32_t
 
     switch (data_size) {
         case 1:
-            if (show_offset) print_offset(fp, current_offset);
+            if (show_offset)
+                print_offset(fp, current_offset);
             p_byte = (BYTE*)buffer;
             for (i = 0; i < (int)elements; i++) {
                 tmp_char = (unsigned char)*p_byte;
@@ -160,7 +167,8 @@ bool write_fmtline_bin(FILE* fp, uint32_t current_offset, void* buffer, uint32_t
             break;
 
         case 2:
-            if (show_offset) print_offset(fp, current_offset);
+            if (show_offset)
+                print_offset(fp, current_offset);
             p_word = (uint16_t*)buffer;
             for (i = 0; i < (int)elements; i++) {
                 if (!big_endian)
@@ -230,7 +238,8 @@ bool write_fmtline_bin(FILE* fp, uint32_t current_offset, void* buffer, uint32_t
             break;
 
         case 4:
-            if (show_offset) print_offset(fp, current_offset);
+            if (show_offset)
+                print_offset(fp, current_offset);
             p_dword = (uint32_t*)buffer;
             for (i = 0; i < (int)elements; i++) {
                 if (!big_endian)
@@ -301,7 +310,8 @@ bool write_fmtline_bin(FILE* fp, uint32_t current_offset, void* buffer, uint32_t
             break;
 
         case 8:
-            if (show_offset) print_offset(fp, current_offset);
+            if (show_offset)
+                print_offset(fp, current_offset);
             p_qword = (uint64_t*)buffer;
             for (i = 0; i < (int)elements; i++) {
                 if (!big_endian)
@@ -404,20 +414,25 @@ bool write_fmtline_hex(FILE* fp, uint32_t current_offset, void* buffer, uint32_t
     uint32_t  byte_count;
     uint32_t  bytes_per_line;
 
-    if (data_size == 0) return false;
+    if (data_size == 0)
+        return false;
     partial_line = false;
     byte_count   = 0;
 
-    if (iseof) --count;
+    if (iseof)
+        --count;
     elements = (int)count / data_size;
 
-    if (elements < 1 && !show_eof_marker) return true;
+    if (elements < 1 && !show_eof_marker)
+        return true;
 
     bytes_per_line
-        = (((unsigned)columns * (unsigned)data_width * 2) + (unsigned)columns);
-    if (columns % 2) --bytes_per_line;
+      = (((unsigned)columns * (unsigned)data_width * 2) + (unsigned)columns);
+    if (columns % 2)
+        --bytes_per_line;
 
-    if (elements < columns) partial_line = true;
+    if (elements < columns)
+        partial_line = true;
 
     ascii_buf_size = ((unsigned)elements * sizeof(tmp_char)) + 1;
     ascii_str      = (char*)malloc(ascii_buf_size);
@@ -432,7 +447,8 @@ bool write_fmtline_hex(FILE* fp, uint32_t current_offset, void* buffer, uint32_t
 
     switch (data_size) {
         case 1:
-            if (show_offset) print_offset(fp, current_offset);
+            if (show_offset)
+                print_offset(fp, current_offset);
             p_byte = (BYTE*)buffer;
             for (i = 0; i < (int)elements; i++) {
                 tmp_char = (unsigned char)*p_byte;
@@ -496,7 +512,8 @@ bool write_fmtline_hex(FILE* fp, uint32_t current_offset, void* buffer, uint32_t
             break;
 
         case 2:
-            if (show_offset) print_offset(fp, current_offset);
+            if (show_offset)
+                print_offset(fp, current_offset);
             p_word = (uint16_t*)buffer;
             for (i = 0; i < (int)elements; i++) {
                 if (!big_endian)
@@ -571,7 +588,8 @@ bool write_fmtline_hex(FILE* fp, uint32_t current_offset, void* buffer, uint32_t
             break;
 
         case 4:
-            if (show_offset) print_offset(fp, current_offset);
+            if (show_offset)
+                print_offset(fp, current_offset);
             p_dword = (uint32_t*)buffer;
             for (i = 0; i < (int)elements; i++) {
                 if (!big_endian)
@@ -646,7 +664,8 @@ bool write_fmtline_hex(FILE* fp, uint32_t current_offset, void* buffer, uint32_t
             break;
 
         case 8:
-            if (show_offset) print_offset(fp, current_offset);
+            if (show_offset)
+                print_offset(fp, current_offset);
             p_qword = (uint64_t*)buffer;
             for (i = 0; i < (int)elements; i++) {
                 if (!big_endian)
@@ -758,20 +777,25 @@ bool write_fmtline_dec(FILE* fp, uint32_t current_offset, void* buffer, uint32_t
     uint32_t  bytes_per_line;
     int       factor;
 
-    if (data_size == 0) return false;
+    if (data_size == 0)
+        return false;
     partial_line = false;
     byte_count   = 0;
 
-    if (iseof) --count;
+    if (iseof)
+        --count;
     elements = (int)count / data_size;
 
-    if (elements < 1 && !show_eof_marker) return true;
+    if (elements < 1 && !show_eof_marker)
+        return true;
 
     factor         = (int)((data_width * 2.5) + 0.5);
     bytes_per_line = (uint32_t)((columns * factor) + columns);
-    if (columns % 2) --bytes_per_line;
+    if (columns % 2)
+        --bytes_per_line;
 
-    if (elements < columns) partial_line = true;
+    if (elements < columns)
+        partial_line = true;
 
     ascii_buf_size = ((unsigned)elements * sizeof(tmp_char)) + 1;
     ascii_str      = (char*)malloc(ascii_buf_size);
@@ -786,7 +810,8 @@ bool write_fmtline_dec(FILE* fp, uint32_t current_offset, void* buffer, uint32_t
 
     switch (data_size) {
         case 1:
-            if (show_offset) print_offset(fp, current_offset);
+            if (show_offset)
+                print_offset(fp, current_offset);
             p_byte = (BYTE*)buffer;
             for (i = 0; i < (int)elements; i++) {
                 tmp_char = (unsigned char)*p_byte;
@@ -850,7 +875,8 @@ bool write_fmtline_dec(FILE* fp, uint32_t current_offset, void* buffer, uint32_t
             break;
 
         case 2:
-            if (show_offset) print_offset(fp, current_offset);
+            if (show_offset)
+                print_offset(fp, current_offset);
             p_word = (uint16_t*)buffer;
             for (i = 0; i < (int)elements; i++) {
                 if (!big_endian)
@@ -925,7 +951,8 @@ bool write_fmtline_dec(FILE* fp, uint32_t current_offset, void* buffer, uint32_t
             break;
 
         case 4:
-            if (show_offset) print_offset(fp, current_offset);
+            if (show_offset)
+                print_offset(fp, current_offset);
             p_dword = (uint32_t*)buffer;
             for (i = 0; i < (int)elements; i++) {
                 if (!big_endian)
@@ -1000,7 +1027,8 @@ bool write_fmtline_dec(FILE* fp, uint32_t current_offset, void* buffer, uint32_t
             break;
 
         case 8:
-            if (show_offset) print_offset(fp, current_offset);
+            if (show_offset)
+                print_offset(fp, current_offset);
             p_qword = (uint64_t*)buffer;
             for (i = 0; i < (int)elements; i++) {
                 if (!big_endian)
@@ -1115,20 +1143,25 @@ bool write_fmtline_oct(FILE* fp, uint32_t current_offset, void* buffer, uint32_t
     uint32_t  bytes_per_line;
     int       factor;
 
-    if (data_size == 0) return false;
+    if (data_size == 0)
+        return false;
     partial_line = false;
     byte_count   = 0;
 
-    if (iseof) --count;
+    if (iseof)
+        --count;
     elements = (int)count / data_size;
 
-    if (elements < 1 && !show_eof_marker) return true;
+    if (elements < 1 && !show_eof_marker)
+        return true;
 
     factor         = (int)((data_width * 2.75) + 0.5);
     bytes_per_line = (((unsigned)columns * (unsigned)factor) + (unsigned)columns);
-    if (columns % 2) --bytes_per_line;
+    if (columns % 2)
+        --bytes_per_line;
 
-    if (elements < columns) partial_line = true;
+    if (elements < columns)
+        partial_line = true;
 
     ascii_buf_size = ((unsigned)elements * sizeof(tmp_char)) + 1;
     ascii_str      = (char*)malloc(ascii_buf_size);
@@ -1143,7 +1176,8 @@ bool write_fmtline_oct(FILE* fp, uint32_t current_offset, void* buffer, uint32_t
 
     switch (data_size) {
         case 1:
-            if (show_offset) print_offset(fp, current_offset);
+            if (show_offset)
+                print_offset(fp, current_offset);
             p_byte = (BYTE*)buffer;
             for (i = 0; i < (int)elements; i++) {
                 tmp_char = (unsigned char)*p_byte;
@@ -1206,7 +1240,8 @@ bool write_fmtline_oct(FILE* fp, uint32_t current_offset, void* buffer, uint32_t
             break;
 
         case 2:
-            if (show_offset) print_offset(fp, current_offset);
+            if (show_offset)
+                print_offset(fp, current_offset);
             p_word = (uint16_t*)buffer;
             for (i = 0; i < (int)elements; i++) {
                 if (!big_endian)
@@ -1280,7 +1315,8 @@ bool write_fmtline_oct(FILE* fp, uint32_t current_offset, void* buffer, uint32_t
             break;
 
         case 4:
-            if (show_offset) print_offset(fp, current_offset);
+            if (show_offset)
+                print_offset(fp, current_offset);
             p_dword = (uint32_t*)buffer;
             for (i = 0; i < (int)elements; i++) {
                 if (!big_endian)
@@ -1354,7 +1390,8 @@ bool write_fmtline_oct(FILE* fp, uint32_t current_offset, void* buffer, uint32_t
             break;
 
         case 8:
-            if (show_offset) print_offset(fp, current_offset);
+            if (show_offset)
+                print_offset(fp, current_offset);
             p_qword = (uint64_t*)buffer;
             for (i = 0; i < (int)elements; i++) {
                 if (!big_endian)
@@ -1468,20 +1505,25 @@ bool write_fmtline_signed(FILE* fp, uint32_t current_offset, void* buffer,
     uint32_t  bytes_per_line;
     int       factor;
 
-    if (data_size == 0) return false;
+    if (data_size == 0)
+        return false;
     partial_line = false;
     byte_count   = 0;
 
-    if (iseof) --count;
+    if (iseof)
+        --count;
     elements = (int)count / data_size;
 
-    if (elements < 1 && !show_eof_marker) return true;
+    if (elements < 1 && !show_eof_marker)
+        return true;
 
     factor         = (int)((data_width * 2.5) + 1.5);
     bytes_per_line = (uint32_t)((columns * factor) + columns);
-    if (columns % 2) --bytes_per_line;
+    if (columns % 2)
+        --bytes_per_line;
 
-    if (elements < columns) partial_line = true;
+    if (elements < columns)
+        partial_line = true;
 
     ascii_buf_size = ((unsigned)elements * sizeof(tmp_char)) + 1;
     ascii_str      = (char*)malloc(ascii_buf_size);
@@ -1496,7 +1538,8 @@ bool write_fmtline_signed(FILE* fp, uint32_t current_offset, void* buffer,
 
     switch (data_size) {
         case 1:
-            if (show_offset) print_offset(fp, current_offset);
+            if (show_offset)
+                print_offset(fp, current_offset);
             p_byte = (BYTE*)buffer;
             for (i = 0; i < (int)elements; i++) {
                 tmp_char = (unsigned char)*p_byte;
@@ -1559,7 +1602,8 @@ bool write_fmtline_signed(FILE* fp, uint32_t current_offset, void* buffer,
             break;
 
         case 2:
-            if (show_offset) print_offset(fp, current_offset);
+            if (show_offset)
+                print_offset(fp, current_offset);
             p_word = (uint16_t*)buffer;
             for (i = 0; i < (int)elements; i++) {
                 if (!big_endian)
@@ -1633,7 +1677,8 @@ bool write_fmtline_signed(FILE* fp, uint32_t current_offset, void* buffer,
             break;
 
         case 4:
-            if (show_offset) print_offset(fp, current_offset);
+            if (show_offset)
+                print_offset(fp, current_offset);
             p_dword = (uint32_t*)buffer;
             for (i = 0; i < (int)elements; i++) {
                 if (!big_endian)
@@ -1708,7 +1753,8 @@ bool write_fmtline_signed(FILE* fp, uint32_t current_offset, void* buffer,
             break;
 
         case 8:
-            if (show_offset) print_offset(fp, current_offset);
+            if (show_offset)
+                print_offset(fp, current_offset);
             p_qword = (uint64_t*)buffer;
             for (i = 0; i < (int)elements; i++) {
                 if (!big_endian)
@@ -1822,14 +1868,17 @@ bool write_fmtline_float(FILE* fp, uint32_t current_offset, void* buffer,
     uint32_t  bytes_per_line;
     int       factor;
 
-    if (data_size == 0) return false;
+    if (data_size == 0)
+        return false;
     partial_line = false;
     byte_count   = 0;
 
-    if (iseof) --count;
+    if (iseof)
+        --count;
     elements = (int)count / data_size;
 
-    if (elements < 1 && !show_eof_marker) return true;
+    if (elements < 1 && !show_eof_marker)
+        return true;
 
     if ((unsigned)data_size == sizeof(float))
         factor = 14;
@@ -1837,9 +1886,11 @@ bool write_fmtline_float(FILE* fp, uint32_t current_offset, void* buffer,
         factor = 15;
 
     bytes_per_line = (((unsigned)columns * (unsigned)factor) + (unsigned)columns);
-    if (columns % 2) --bytes_per_line;
+    if (columns % 2)
+        --bytes_per_line;
 
-    if (elements < columns) partial_line = true;
+    if (elements < columns)
+        partial_line = true;
 
     ascii_buf_size = ((unsigned)elements * sizeof(tmp_char)) + 1;
     ascii_str      = (char*)malloc(ascii_buf_size);
@@ -1852,12 +1903,15 @@ bool write_fmtline_float(FILE* fp, uint32_t current_offset, void* buffer,
     data_str[0]  = 0;
     ascii_str[0] = 0;
 
-    if (float_precision == 0) float_precision = 6;
+    if (float_precision == 0)
+        float_precision = 6;
 
     switch (data_size) {
         case 4:
-            if (float_width == 0) float_width = 14;
-            if (show_offset) print_offset(fp, current_offset);
+            if (float_width == 0)
+                float_width = 14;
+            if (show_offset)
+                print_offset(fp, current_offset);
             p_dword = (uint32_t*)buffer;
             for (i = 0; i < (int)elements; i++) {
                 if (!big_endian)
@@ -1935,8 +1989,10 @@ bool write_fmtline_float(FILE* fp, uint32_t current_offset, void* buffer,
             break;
 
         case 8:
-            if (float_width == 0) float_width = 15;
-            if (show_offset) print_offset(fp, current_offset);
+            if (float_width == 0)
+                float_width = 15;
+            if (show_offset)
+                print_offset(fp, current_offset);
             p_qword = (uint64_t*)buffer;
             for (i = 0; i < (int)elements; i++) {
                 if (!big_endian)

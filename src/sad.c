@@ -15,22 +15,27 @@
  * SOFTWARE.
  ******************************************************************************/
 
-#include "platform.h"
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
+#include "platform.h"
+
 #if defined(__DJGPP__) || defined(__UNIXLIKE__)
-#include <errno.h>
-#define _access access
+    #include <errno.h>
+    #define _access access
 #endif
 
 #if defined(__BORLANDC__) || defined(_MSC_VER)
-#include <io.h>
+    #include <io.h>
 #else
-#include <unistd.h>
+    #include <unistd.h>
 #endif
+#include <ctype.h>
+#include <fcntl.h>
+#include <stdbool.h>
+#include <stdint.h>
+
 #include "binstr.h"
 #include "dprintf.h"
 #include "dumpers.h"
@@ -44,32 +49,26 @@
 #include "utils.h"
 #include "version.h"
 
-#include <ctype.h>
-#include <fcntl.h>
-#include <stdbool.h>
-#include <stdint.h>
-
 #ifdef __DOS16__
 char system_command[MAXSTRING];
 #endif
 
 /* Control character tables */
 char* CtrlTable[]
-    = {"nul", "soh", "stx", "etx", "eot", "enq", "ack", "bel", "bs",  "ht",  "nl",
-       "vt",  "np",  "cr",  "so",  "si",  "dle", "dc1", "dc2", "dc3", "dc4", "nak",
-       "syn", "etb", "can", "em",  "sub", "esc", "fs",  "gs",  "rs",  "us"};
+  = {"nul", "soh", "stx", "etx", "eot", "enq", "ack", "bel", "bs",  "ht",  "nl",
+     "vt",  "np",  "cr",  "so",  "si",  "dle", "dc1", "dc2", "dc3", "dc4", "nak",
+     "syn", "etb", "can", "em",  "sub", "esc", "fs",  "gs",  "rs",  "us"};
 
 char* CCTable[] = {"^@", "^A", "^B", "^C", "^D", "^E", "^F",  "^G", "^H", "^I", "^J",
                    "^K", "^L", "^M", "^N", "^O", "^P", "^Q",  "^R", "^S", "^T", "^U",
                    "^V", "^W", "^X", "^Y", "^Z", "^[", "^\\", "^]", "^^", "^_"};
 
-char* H_CCTable[]
-    = {"^\b^@\b@", "^\b^A\bA", "^\b^B\bB", "^\b^C\bC", "^\b^D\bD",   "^\b^E\bE",
-       "^\b^F\bF", "^\b^G\bG", "^\b^H\bH", "^\b^I\bI", "^\b^J\bJ",   "^\b^K\bK",
-       "^\b^L\bL", "^\b^M\bM", "^\b^N\bN", "^\b^O\bO", "^\b^P\bP",   "^\b^Q\bQ",
-       "^\b^R\bR", "^\b^S\bS", "^\b^T\bT", "^\b^U\bU", "^\b^V\bV",   "^\b^W\bW",
-       "^\b^X\bX", "^\b^Y\bY", "^\b^Z\bZ", "^\b^[\b[", "^\b^\\\b\\", "^\b^]\b]",
-       "^\b^^\b^", "^\b^_\b_"};
+char* H_CCTable[] = {
+  "^\b^@\b@",   "^\b^A\bA", "^\b^B\bB", "^\b^C\bC", "^\b^D\bD", "^\b^E\bE", "^\b^F\bF",
+  "^\b^G\bG",   "^\b^H\bH", "^\b^I\bI", "^\b^J\bJ", "^\b^K\bK", "^\b^L\bL", "^\b^M\bM",
+  "^\b^N\bN",   "^\b^O\bO", "^\b^P\bP", "^\b^Q\bQ", "^\b^R\bR", "^\b^S\bS", "^\b^T\bT",
+  "^\b^U\bU",   "^\b^V\bV", "^\b^W\bW", "^\b^X\bX", "^\b^Y\bY", "^\b^Z\bZ", "^\b^[\b[",
+  "^\b^\\\b\\", "^\b^]\b]", "^\b^^\b^", "^\b^_\b_"};
 
 /*globals and options*/
 uint16_t dump_mode;
@@ -126,13 +125,13 @@ static bool try_config_location(char* cfg_file, const char* env_var,
         sprintf(cfg_file, "%s\\%s", p, path_suffix);
         /* Replace forward slashes with backslashes in the suffix portion */
         char* slash;
-        while ((slash = strchr(cfg_file, '/')) != NULL) {
-            *slash = '\\';
-        }
+        while ((slash = strchr(cfg_file, '/')) != NULL) { *slash = '\\'; }
 #else
         sprintf(cfg_file, "%s/%s", p, path_suffix);
 #endif
-        if (FILE_EXISTS(cfg_file)) { return true; }
+        if (FILE_EXISTS(cfg_file)) {
+            return true;
+        }
     }
     return false;
 }
@@ -152,7 +151,8 @@ int main(int argc, char** argv)
 #if defined(__DOSLIKE__)
     p = strchr(pname, '.');
 #endif
-    if (p != NULL) *p = (char)0;
+    if (p != NULL)
+        *p = (char)0;
 #ifndef _UNIXSTYLE_PATHS
     while ((p = strchr(pname, '\\')) != 0) pname = p + 1;
 #else
@@ -208,7 +208,8 @@ int main(int argc, char** argv)
         dbprintf("%s: debug: `%s' found, getting arguments...\n", pname, cfg_file);
         ex_argc = fmakeargs(cfg_file, &ex_argv);
         if (ex_argc != 0) {
-            if (!process_options(ex_argc, ex_argv)) return (1);
+            if (!process_options(ex_argc, ex_argv))
+                return (1);
         } /* if (ex_argc != 0) */
         else
             dbprintf("%s: debug: no cfg arguments found.\n", pname);
@@ -226,7 +227,8 @@ int main(int argc, char** argv)
         dbprintf("%s: debug: `%s' env found, getting arguments...\n", pname, pname);
         ex_argc = env_makeargs(pname, &ex_argv);
         if (ex_argc != 0)
-            if (!process_options(ex_argc, ex_argv)) return (1);
+            if (!process_options(ex_argc, ex_argv))
+                return (1);
         free_makeargs(ex_argc, ex_argv);
     } /* if (p != NULL) */
     else
@@ -235,7 +237,8 @@ int main(int argc, char** argv)
     /*********************************************/
     /* Process the command line options */
     /*********************************************/
-    if (!process_options(argc, argv)) return (1);
+    if (!process_options(argc, argv))
+        return (1);
 
     if (columns == 0) {
         fprintf(stderr, "%s: error: `columns' can not be zero.\n", pname);
@@ -339,7 +342,8 @@ int main(int argc, char** argv)
     } /* else */
 
 #if !defined(__DOS16__)
-    if (use_pager) (void)pclose(output_file);
+    if (use_pager)
+        (void)pclose(output_file);
 #else
     if (use_pager) {
         fclose(output_file);

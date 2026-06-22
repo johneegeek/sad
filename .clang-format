@@ -2,7 +2,7 @@
 Language: Cpp
 AccessModifierOffset: -4
 AlignAfterOpenBracket: Align
-AlignArrayOfStructures: Right
+AlignArrayOfStructures: Left
 AlignConsecutiveAssignments:
   Enabled: true
   AcrossEmptyLines: false
@@ -38,7 +38,7 @@ AllowShortBlocksOnASingleLine: Always
 AllowShortCaseLabelsOnASingleLine: false
 AllowShortEnumsOnASingleLine: true
 AllowShortFunctionsOnASingleLine: Inline
-AllowShortIfStatementsOnASingleLine: WithoutElse
+AllowShortIfStatementsOnASingleLine: Never
 AllowShortLambdasOnASingleLine: All
 AllowShortLoopsOnASingleLine: true
 AlwaysBreakAfterDefinitionReturnType: None
@@ -83,8 +83,8 @@ BreakStringLiterals: true
 ColumnLimit: 88
 CommentPragmas: "^ IWYU pragma:"
 CompactNamespaces: false
-ConstructorInitializerIndentWidth: 4
-ContinuationIndentWidth: 4
+ConstructorInitializerIndentWidth: 2
+ContinuationIndentWidth: 2
 Cpp11BracedListStyle: true
 DerivePointerAlignment: false
 DisableFormat: false
@@ -100,26 +100,34 @@ IfMacros:
   - KJ_IF_MAYBE
 IncludeBlocks: Regroup
 IncludeCategories:
-  - Regex: '^"(llvm|llvm-c|clang|clang-c)/'
-    Priority: 2
-    SortPriority: 0
+    # All the local headers
+  - Regex: '^".*'
+    Priority: 7
     CaseSensitive: false
-  - Regex: '^(<|"(gtest|gmock|isl|json)/)'
+    # Other library headers
+  - Regex: '^<(boost|spd|fmt|json|gtest|gmock)/'
+    Priority: 6
+    CaseSensitive: false
+    # C++ standard library headers
+  - Regex: '^<.*>'
+    Priority: 4
+    CaseSensitive: false
+    # Other C system headers 
+  - Regex: '^<.*\.h>'
     Priority: 3
-    SortPriority: 0
     CaseSensitive: false
-  - Regex: ".*"
-    Priority: 1
-    SortPriority: 0
+    # Some things need to be first
+  - Regex: '^<(ole2|shobjidl|tchar|windows|winsock2|winternl|ws2tcpip)\.h>'
+    Priority: 2
     CaseSensitive: false
-IncludeIsMainRegex: "(Test)?$"
+IncludeIsMainRegex: "(_test)?$"
 IncludeIsMainSourceRegex: ""
 IndentAccessModifiers: true
 IndentCaseBlocks: false
 IndentCaseLabels: true
 IndentExternBlock: Indent
 IndentGotoLabels: true
-IndentPPDirectives: None
+IndentPPDirectives: BeforeHash
 IndentRequiresClause: false
 IndentWidth: 4
 IndentWrappedFunctionNames: true
@@ -181,9 +189,9 @@ SpaceBeforeCaseColon: false
 SpaceBeforeCpp11BracedList: false
 SpaceBeforeCtorInitializerColon: false
 SpaceBeforeInheritanceColon: true
-SpaceBeforeParens: ControlStatementsExceptControlMacros
+SpaceBeforeParens: Custom
 SpaceBeforeParensOptions:
-  AfterControlStatements: false
+  AfterControlStatements: true
   AfterForeachMacros: false
   AfterFunctionDefinitionName: false
   AfterFunctionDeclarationName: false

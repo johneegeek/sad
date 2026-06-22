@@ -148,7 +148,8 @@ string trim_left(string const& str, const char* char_list /*=NULL*/)
         char_list_str = char_list;
 
     string new_string(str);
-    if (new_string.empty()) return new_string;
+    if (new_string.empty())
+        return new_string;
 
     string::size_type keep_pos = new_string.find_first_not_of(char_list_str);
     new_string.erase(0, keep_pos);
